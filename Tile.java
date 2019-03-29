@@ -1,8 +1,10 @@
 public class Tile {
-    Piece piece;
+    private String name;
+    private Piece piece;
 
-    public Tile() {
-
+    public Tile(String name) {
+        piece = null;
+        this.name = name;
     }
 
     /**
@@ -24,5 +26,21 @@ public class Tile {
      */
     public void removePiece() {
         piece = null;
+    }
+
+    public Piece getPiece() {
+        return piece;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String toString() {
+        return name;
     }
 }

@@ -3,6 +3,6 @@
  */
 
 public class Player {
-    String name;
+    private String name;
 
 }

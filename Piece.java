@@ -1,6 +1,6 @@
 public abstract class Piece implements Movable {
-    String name;
-    Color color;
+    private String name;
+    private Color color;
 
     public String getName() {
         return name;
@@ -18,5 +18,7 @@ public abstract class Piece implements Movable {
         this.color = color;
     }
 
-
+    public String toString() {
+        return name;
+    }
 }
