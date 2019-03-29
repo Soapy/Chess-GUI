@@ -1,5 +1,7 @@
+import java.sql.SQLOutput;
+
 public class Board {
-    public Tile[][] board; //Maintains a game board.
+    private Tile[][] board; //Maintains a game board.
 
     public Board(int row, int column) {
         board = new Tile[row][column];

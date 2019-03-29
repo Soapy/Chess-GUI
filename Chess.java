@@ -5,15 +5,17 @@
 
 public class Chess {
     public int currentTurn;
-    Board board;
+    public Board board;
 
     public Chess() {
         currentTurn = 0;
-        Board board = new Board(8, 8); //Chess is played on an 8 by 8 board.
+        board = new Board(8, 8); //Chess is played on an 8 by 8 board.
     }
 
     public void playGame() {
     }
+
+    
 
     @Override
     public String toString() {
