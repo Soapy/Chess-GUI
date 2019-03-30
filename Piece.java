@@ -2,6 +2,11 @@ public abstract class Piece implements Movable {
     private String name;
     private Color color;
 
+    public Piece(Color color, String name) {
+        setName(name);
+        setColor(color);
+    }
+
     public String getName() {
         return name;
     }
@@ -19,6 +24,8 @@ public abstract class Piece implements Movable {
     }
 
     public String toString() {
-        return name;
+        StringBuilder sb = new StringBuilder(String.valueOf(name.charAt(0)));
+        sb.append(color.name().charAt(0));
+        return sb.toString();
     }
 }

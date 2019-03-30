@@ -1,4 +1,9 @@
 public class Rook extends Piece {
+
+    public Rook(Color color) {
+        super(color, "Rook");
+    }
+
     /**
      * The logic of where a unit is able to move to.
      */

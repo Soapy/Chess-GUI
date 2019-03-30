@@ -1,4 +1,9 @@
 public class Bishop extends Piece {
+
+    public Bishop(Color color) {
+        super(color, "Bishop");
+    }
+
     /**
      * The logic of where a unit is able to move to.
      */

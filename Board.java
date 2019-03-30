@@ -1,7 +1,5 @@
-import java.sql.SQLOutput;
-
 public class Board {
-    private Tile[][] board; //Maintains a game board.
+    public Tile[][] board; //Maintains a game board.
 
     public Board(int row, int column) {
         board = new Tile[row][column];
@@ -28,10 +26,10 @@ public class Board {
         for(Tile[] row : board) {
             for(Tile column : row) {
                 if(column.hasPiece()) {
-                    sb.append(column.getPiece().getName());
+                    sb.append(column.getPiece().toString());
                 }
                 else {
-                    sb.append("x");
+                    sb.append("xx");
                 }
                 sb.append(" ");
             }

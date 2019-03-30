@@ -17,7 +17,7 @@ public class Tile {
     /**
      * @param piece
      */
-    public void addPiece(Piece piece) {
+    public void setPiece(Piece piece) {
         this.piece = piece;
     }
 

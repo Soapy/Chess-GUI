@@ -1,4 +1,10 @@
 public class Queen extends Piece {
+
+
+    public Queen(Color color) {
+        super(color, "Queen");
+    }
+
     /**
      * The logic of where a unit is able to move to.
      */
