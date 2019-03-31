@@ -22,9 +22,13 @@ public class Board {
     /**
      * The logic of where a unit is able to move to.
      */
-    public void move(Piece piece) {
-        String str = piece.getName();
-        piece.move(board);
+    public void move(Tile tile) {
+        if(tile.hasPiece()) {
+            tile.getPiece().move();
+            Location loc = new Location(tile.getPiece().getLocation().getRow(), tile.getPiece().getLocation().getColumn());
+            board[loc.getRow()][loc.getColumn()].setPiece(tile.getPiece());
+            tile.removePiece();
+        }
     }
 
     /**

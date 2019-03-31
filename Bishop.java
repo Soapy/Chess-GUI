@@ -7,11 +7,12 @@ public class Bishop extends Piece {
     /**
      * The logic of where a unit is able to move to.
      *
-     * @param board
+     * @param
      */
     @Override
-    public void move(Tile[][] board) {
-
+    public void move() {
+        Location loc = getLocation();
+        setLocation(loc.getRow() - 2, loc.getColumn() - 2);
     }
 
     /**

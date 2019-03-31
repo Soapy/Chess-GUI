@@ -10,8 +10,17 @@ public class Pawn extends Piece {
     /**
      * The logic of where a unit is able to move to.
      */
-    public void move(Tile[][] board) {
-
+    @Override
+    public void move() {
+        if(hasMoved) {
+            Location loc = getLocation();
+            setLocation(loc.getRow() - 1, loc.getColumn());
+        }
+        else {
+            Location loc = getLocation();
+            setLocation(loc.getRow() - 2, loc.getColumn());
+            hasMoved = true;
+        }
     }
 
     /**

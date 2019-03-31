@@ -65,7 +65,20 @@ public class Chess {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(board.toString());
-        sb.append("\nCurrent turn: " + currentTurn);
+        sb.append("\nCurrent turn: " + currentTurn + "\n");
+        currentTurn++;
+
+        board.move(board.board[6][1]);
+
+        sb.append(board.toString());
+        sb.append("\nCurrent turn: " + currentTurn + "\n");
+        currentTurn++;
+
+        board.move(board.board[7][2]);
+        sb.append(board.toString());
+        sb.append("\nCurrent turn: " + currentTurn + "\n");
+        currentTurn++;
+
         return sb.toString();
     }
 }

@@ -8,10 +8,10 @@ public class Queen extends Piece {
     /**
      * The logic of where a unit is able to move to.
      *
-     * @param board
+     * @param
      */
     @Override
-    public void move(Tile[][] board) {
+    public void move() {
 
     }
 
