@@ -6,9 +6,11 @@ public class Rook extends Piece {
 
     /**
      * The logic of where a unit is able to move to.
+     *
+     * @param board
      */
     @Override
-    public void move() {
+    public void move(Tile[][] board) {
 
     }
 

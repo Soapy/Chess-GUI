@@ -6,9 +6,11 @@ public class Knight extends Piece {
 
     /**
      * The logic of where a unit is able to move to.
+     *
+     * @param board
      */
     @Override
-    public void move() {
+    public void move(Tile[][] board) {
 
     }
 
@@ -18,16 +20,5 @@ public class Knight extends Piece {
     @Override
     public void capture() {
 
-    }
-
-    /**
-     * Overrides Piece's toString() in order to differentiate Knight between
-     * King's string representation when printed to the terminal.
-     * @return the first two letters of Knight
-     */
-    @Override
-    public String toString() {
-        String str = this.getClass().getSimpleName();
-        return str.substring(0, 2);
     }
 }

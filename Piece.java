@@ -1,10 +1,12 @@
-public abstract class Piece implements Movable {
+public abstract class Piece implements Movable{
     private String name;
     private Color color;
+    private Location location;
 
-    public Piece(Color color, String name) {
+    public Piece(Color color, String name, int row, int column) {
         setName(name);
         setColor(color);
+        setLocation(row, column);
     }
 
     public String getName() {
@@ -23,8 +25,18 @@ public abstract class Piece implements Movable {
         this.color = color;
     }
 
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(int row, int column) {
+        location.setRow(row);
+        location.setColumn(column);
+    }
+
     public String toString() {
-        StringBuilder sb = new StringBuilder(String.valueOf(name.charAt(0)));
+        String str = this.getClass().getSimpleName();
+        StringBuilder sb = new StringBuilder(str.substring(0, 2));
         sb.append(color.name().charAt(0));
         return sb.toString();
     }

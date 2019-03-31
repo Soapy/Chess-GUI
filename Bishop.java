@@ -1,14 +1,16 @@
 public class Bishop extends Piece {
 
-    public Bishop(Color color) {
-        super(color, "Bishop");
+    public Bishop(Color color, int row, int column) {
+        super(color, "Bishop", row, column);
     }
 
     /**
      * The logic of where a unit is able to move to.
+     *
+     * @param board
      */
     @Override
-    public void move() {
+    public void move(Tile[][] board) {
 
     }
 

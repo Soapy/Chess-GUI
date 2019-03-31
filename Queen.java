@@ -1,15 +1,17 @@
 public class Queen extends Piece {
 
 
-    public Queen(Color color) {
-        super(color, "Queen");
+    public Queen(Color color, int row, int column) {
+        super(color, "Queen", row, column);
     }
 
     /**
      * The logic of where a unit is able to move to.
+     *
+     * @param board
      */
     @Override
-    public void move() {
+    public void move(Tile[][] board) {
 
     }
 

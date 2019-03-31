@@ -19,6 +19,21 @@ public class Board {
         }
     }
 
+    /**
+     * The logic of where a unit is able to move to.
+     */
+    public void move(Piece piece) {
+        String str = piece.getName();
+        piece.move(board);
+    }
+
+    /**
+     * If a unit moves onto a tile that contains an enemy unit, then enemy unit is replaced by the new unit.
+     */
+    public void capture() {
+
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -29,7 +44,7 @@ public class Board {
                     sb.append(column.getPiece().toString());
                 }
                 else {
-                    sb.append("xx");
+                    sb.append("xxx");
                 }
                 sb.append(" ");
             }

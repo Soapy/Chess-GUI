@@ -3,8 +3,12 @@ public class Tile {
     private Piece piece;
 
     public Tile(String name) {
-        piece = null;
+        this(name, null);
+    }
+
+    public Tile(String name, Piece piece) {
         this.name = name;
+        this.piece = piece;
     }
 
     /**
@@ -17,8 +21,13 @@ public class Tile {
     /**
      * @param piece
      */
-    public void setPiece(Piece piece) {
+    public void setPiece(Piece piece, int row, int column) {
         this.piece = piece;
+        this.piece.setLocation(row, column);
+    }
+
+    public void setPiece(Piece piece) {
+        setPiece(piece, piece.getLocation().getRow(), piece.getLocation().getColumn());
     }
 
     /**
