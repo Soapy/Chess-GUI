@@ -30,8 +30,7 @@ public abstract class Piece implements Movable{
     }
 
     public void setLocation(int row, int column) {
-        location.setRow(row);
-        location.setColumn(column);
+        location = new Location(row, column);
     }
 
     public String toString() {

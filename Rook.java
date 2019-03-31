@@ -1,7 +1,7 @@
 public class Rook extends Piece {
 
-    public Rook(Color color) {
-        super(color, "Rook");
+    public Rook(Color color, int row, int column) {
+        super(color, "Rook", row, column);
     }
 
     /**

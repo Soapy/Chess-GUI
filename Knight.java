@@ -1,7 +1,7 @@
 public class Knight extends Piece {
 
-    public Knight(Color color) {
-        super(color, "Knight");
+    public Knight(Color color, int row, int column) {
+        super(color, "Knight", row, column);
     }
 
     /**
