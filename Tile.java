@@ -1,14 +1,13 @@
 public class Tile {
-    private String name;
+    private int row;
+    private int column;
+
     private Piece piece;
 
-    public Tile(String name) {
-        this(name, null);
-    }
-
-    public Tile(String name, Piece piece) {
-        this.name = name;
-        this.piece = piece;
+    public Tile(int row, int column) {
+        this.row = row;
+        this.column = column;
+        piece = null;
     }
 
     /**
@@ -21,35 +20,52 @@ public class Tile {
     /**
      * @param piece
      */
-    public void setPiece(Piece piece, int row, int column) {
-        this.piece = piece;
-        this.piece.setLocation(row, column);
-    }
-
     public void setPiece(Piece piece) {
-        setPiece(piece, piece.getLocation().getRow(), piece.getLocation().getColumn());
+        this.piece = piece;
     }
 
     /**
      * Removes a piece from the Tile.
      */
-    public void removePiece() {
+    public Piece removePiece() {
+        Piece p = piece;
         piece = null;
+        return p;
+    }
+
+    /**
+     *
+     * @param p
+     */
+    public void capturePiece(Piece p) {
+        Piece p1 = getPiece();
+        if(p.getColor() == Color.WHITE) {
+
+        }
+        else {
+
+        }
+        piece = p;
     }
 
     public Piece getPiece() {
         return piece;
     }
 
-    public String getName() {
-        return name;
+    public int getRow() {
+        return row;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRow(int row) {
+        this.row = row;
     }
 
-    public String toString() {
-        return name;
+    public int getColumn() {
+        return column;
     }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
+
 }
