@@ -1,8 +1,8 @@
 public class Tile {
 
     private Location loc;
-    private String name;
     private Piece piece;
+    private String name;
 
     public Tile(Location loc, String name) {
         this.loc = loc;

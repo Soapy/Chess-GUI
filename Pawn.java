@@ -34,7 +34,6 @@ public class Pawn extends Piece {
             flag = false;
         }
 
-        // Collect the necessary information and set up variables.
         Location currentLoc = getTile().getLoc();
         Location tLoc = t.getLoc();
 
@@ -45,7 +44,7 @@ public class Pawn extends Piece {
         int tColumn = tLoc.getColumn();
         int tRow = tLoc.getRow();
 
-        // Check relevant moves if the pawn is white.
+        // check moves if pawn is white
         if(getColor() == Color.WHITE) {
             if(tColumn == column && tRow == (row + 1) && !t.hasPiece()) {
                 flag = true;
@@ -65,7 +64,7 @@ public class Pawn extends Piece {
             flag = false;
         }
 
-        // Check relevant moves if the pawn in black.
+        // check moves if pawn is black
         else {
             if(tColumn == column && tRow == (column - 1) && !t.hasPiece()) {
                 flag = true;
@@ -98,48 +97,48 @@ public class Pawn extends Piece {
         ArrayList<Tile> legalMoves = new ArrayList<>();
 
         Location myLocation = getTile().getLoc();
-        Tile[][] currentBoard = b.getBoard();
+        Tile[][] board = b.getBoard();
 
         int column = myLocation.getColumn();
         int row = myLocation.getRow();
-        int boardColumns = currentBoard[0].length;
-        int boardRows = currentBoard.length;
+        int boardColumns = board[0].length;
+        int boardRows = board.length;
 
         //white pawn movement logic
         if(getColor() == Color.WHITE) {
             if(row + 1 < boardRows) {
-                legalMoves.add(currentBoard[row + 1][column]);
+                legalMoves.add(board[row + 1][column]);
 
                 if(column + 1 < boardColumns) {
-                    legalMoves.add(currentBoard[row + 1][column + 1]);
+                    legalMoves.add(board[row + 1][column + 1]);
                 }
 
                 if(column - 1 >= 0) {
-                    legalMoves.add(currentBoard[row + 1][column - 1]);
+                    legalMoves.add(board[row + 1][column - 1]);
                 }
             }
 
             if(row + 2 < boardRows && !hasMoved) {
-                legalMoves.add(currentBoard[row + 2][column]);
+                legalMoves.add(board[row + 2][column]);
             }
         }
 
         //black pawn movement logic
         else {
             if(row - 1 < boardRows) {
-                legalMoves.add(currentBoard[row - 1][column]);
+                legalMoves.add(board[row - 1][column]);
 
                 if(column + 1 < boardColumns) {
-                    legalMoves.add(currentBoard[row - 1][column + 1]);
+                    legalMoves.add(board[row - 1][column + 1]);
                 }
 
                 if(column - 1 >= 0) {
-                    legalMoves.add(currentBoard[row - 1][column - 1]);
+                    legalMoves.add(board[row - 1][column - 1]);
                 }
             }
 
             if(row - 2 >= 0 && !hasMoved) {
-                legalMoves.add(currentBoard[row - 2][column]);
+                legalMoves.add(board[row - 2][column]);
             }
         }
 
