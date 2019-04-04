@@ -1,25 +1,18 @@
 import java.util.ArrayList;
-import java.util.Set;
 
 public class Bishop extends Piece {
 
-    public Bishop(Color color, Tile tile) {
-        super(color, "Bishop", tile);
+    public Bishop(Color color) {
+        super(color);
     }
 
-    /** Bishops can only move diagonally, towards the enemy's side of the field
-     *  or towards its original location.
-     *  Can move: Northwest, Northeast, Southwest, Southeast.
-     * @param t 2D array of Tiles
-     * @return All the legal moves for this piece
-     */
     @Override
-    public ArrayList<Tile> getLegalMoves(Tile[][] t) {
-        int currentRow = getTile().getRow();
-        int currentColumn = getTile().getColumn();
+    public boolean move(Tile t, Board b) {
+        return false;
+    }
 
-        ArrayList<Tile> arr = getDiagonals(t, currentRow, currentColumn);
-
-        return arr;
+    @Override
+    public ArrayList<Tile> getLegalMoves(Board b) {
+        return null;
     }
 }

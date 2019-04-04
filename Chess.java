@@ -1,11 +1,11 @@
 /**
- * Handles logic of the game of chess.
+ * Handles GUI
  * TODO: Add GUI
  */
 import java.util.ArrayList;
 
 public class Chess {
-    private int turnCount;
+    /*private int turnCount;
     private boolean whitePlayerTurn;
     private Board board;
     private ArrayList<Piece> capturedWhitePieces;
@@ -24,5 +24,5 @@ public class Chess {
         sb.append("\nCurrent turn: " + turnCount + "\n");
 
         return sb.toString();
-    }
+    }*/
 }

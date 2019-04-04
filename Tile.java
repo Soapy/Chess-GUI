@@ -1,12 +1,12 @@
 public class Tile {
-    private int row;
-    private int column;
 
+    private Location loc;
+    private String name;
     private Piece piece;
 
-    public Tile(int row, int column) {
-        this.row = row;
-        this.column = column;
+    public Tile(Location loc, String name) {
+        this.loc = loc;
+        this.name = name;
         piece = null;
     }
 
@@ -24,6 +24,13 @@ public class Tile {
         this.piece = piece;
     }
 
+    public Piece getPiece() {
+        return piece;
+    }
+
+    public Location getLoc() {
+        return loc;
+    }
     /**
      * Removes a piece from the Tile.
      */
@@ -31,41 +38,6 @@ public class Tile {
         Piece p = piece;
         piece = null;
         return p;
-    }
-
-    /**
-     *
-     * @param p
-     */
-    public void capturePiece(Piece p) {
-        Piece p1 = getPiece();
-        if(p.getColor() == Color.WHITE) {
-
-        }
-        else {
-
-        }
-        piece = p;
-    }
-
-    public Piece getPiece() {
-        return piece;
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public void setRow(int row) {
-        this.row = row;
-    }
-
-    public int getColumn() {
-        return column;
-    }
-
-    public void setColumn(int column) {
-        this.column = column;
     }
 
 }
