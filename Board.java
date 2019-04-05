@@ -44,23 +44,23 @@ public class Board {
 
     private void createWhitePieces() {
         for(int i = 0; i < board[6].length; i++) {
-            Pawn pawn = new Pawn(Color.BLACK);
+            Pawn pawn = new Pawn(Color.WHITE);
             board[6][i].setPiece(pawn);
         }
 
         //initialize Rooks
-        board[7][0].setPiece(new Rook(Color.BLACK));
-        board[7][7].setPiece(new Rook(Color.BLACK));
+        board[7][0].setPiece(new Rook(Color.WHITE));
+        board[7][7].setPiece(new Rook(Color.WHITE));
         //initialize knights
-        board[7][1].setPiece(new Knight(Color.BLACK));
-        board[7][6].setPiece(new Knight(Color.BLACK));
+        board[7][1].setPiece(new Knight(Color.WHITE));
+        board[7][6].setPiece(new Knight(Color.WHITE));
         //initialize bishops
-        board[7][2].setPiece(new Bishop(Color.BLACK));
-        board[7][5].setPiece(new Bishop(Color.BLACK));
+        board[7][2].setPiece(new Bishop(Color.WHITE));
+        board[7][5].setPiece(new Bishop(Color.WHITE));
         //initialize queen
-        board[7][3].setPiece(new Queen(Color.BLACK));
+        board[7][3].setPiece(new Queen(Color.WHITE));
         //initialize king
-        board[7][4].setPiece(new King(Color.BLACK));
+        board[7][4].setPiece(new King(Color.WHITE));
     }
 
     public Tile[][] getBoard() {

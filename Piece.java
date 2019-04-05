@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Set;
 
 public abstract class Piece{
     private final Color color;
@@ -36,6 +35,8 @@ public abstract class Piece{
     }
 
     public abstract boolean move(Tile t, Board b);
+
+
 
     public abstract ArrayList<Tile> getLegalMoves(Board b);
 

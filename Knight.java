@@ -8,11 +8,36 @@ public class Knight extends Piece {
 
     @Override
     public boolean move(Tile t, Board b) {
-        boolean flag = false;
+        boolean flag = true;
+
+        //sets flag to false if t and current tile are the same tile
+        if(getTile() == t) {
+            flag = false;
+        }
+
+        //checks if t is the same color as the already existing piece
         if(t.hasPiece() && t.getPiece().getColor() == getColor()) {
             flag = false;
         }
 
+        if(flag) {
+            Location currentLoc = getTile().getLoc();
+            Location tLoc = t.getLoc();
+
+            Tile[][] currentBoard = b.getBoard();
+
+            int column = currentLoc.getColumn();
+            int row = currentLoc.getRow();
+            int tColumn = tLoc.getColumn();
+            int tRow = tLoc.getRow();
+
+            if(getColor() == Color.WHITE) {
+
+            }
+            else {
+
+            }
+        }
         return flag;
     }
 

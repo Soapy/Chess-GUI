@@ -44,44 +44,44 @@ public class Pawn extends Piece {
         int tColumn = tLoc.getColumn();
         int tRow = tLoc.getRow();
 
-        // check moves if pawn is white
-        if(getColor() == Color.WHITE) {
-            if(tColumn == column && tRow == (row + 1) && !t.hasPiece()) {
-                flag = true;
-            }
-
-            else if(tColumn == column && tRow == (row + 2) && !t.hasPiece()) {
-                if(!currentBoard[column][row + 1].hasPiece() && !hasMoved) {
+        if(flag) {
+            // check moves if pawn is white
+            if(getColor() == Color.WHITE) {
+                if(tColumn == column && tRow == (row + 1) && !t.hasPiece()) {
                     flag = true;
+                }
+
+                else if(tColumn == column && tRow == (row + 2) && !t.hasPiece()) {
+                    if(!currentBoard[column][row + 1].hasPiece() && !hasMoved) {
+                        flag = true;
+                    }
+                }
+
+                else if((tColumn == (column + 1) || tColumn == (column - 1)) && tRow == (row + 1)) {
+                    if(t.hasPiece() && t.getPiece().getColor() == Color.BLACK) {
+                        flag = true;
+                    }
                 }
             }
 
-            else if((tColumn == (column + 1) || tColumn == (column - 1)) && tRow == (row + 1)) {
-                if(t.hasPiece() && t.getPiece().getColor() == Color.BLACK) {
+            // check moves if pawn is black
+            else {
+                if(tColumn == column && tRow == (column - 1) && !t.hasPiece()) {
                     flag = true;
                 }
-            }
-            flag = false;
-        }
 
-        // check moves if pawn is black
-        else {
-            if(tColumn == column && tRow == (column - 1) && !t.hasPiece()) {
-                flag = true;
-            }
+                else if(tColumn == column && tRow == (row - 2) && !t.hasPiece()) {
+                    if(!currentBoard[column][row - 1].hasPiece() && !hasMoved) {
+                        flag = true;
+                    }
+                }
 
-            else if(tColumn == column && tRow == (row - 2) && !t.hasPiece()) {
-                if(!currentBoard[column][row - 1].hasPiece() && !hasMoved) {
-                    flag = true;
+                else if((tColumn == (column + 1) || tColumn == (column - 1)) && tRow == (row - 1)) {
+                    if(!t.hasPiece() && t.getPiece().getColor() == Color.BLACK) {
+                        flag = true;
+                    }
                 }
             }
-
-            else if((tColumn == (column + 1) || tColumn == (column - 1)) && tRow == (row - 1)) {
-                if(!t.hasPiece() && t.getPiece().getColor() == Color.BLACK) {
-                    flag = true;
-                }
-            }
-            flag = false;
         }
         return flag;
     }
