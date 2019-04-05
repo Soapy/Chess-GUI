@@ -52,7 +52,7 @@ public class Pawn extends Piece {
                 }
 
                 else if(tColumn == column && tRow == (row + 2) && !t.hasPiece()) {
-                    if(!currentBoard[column][row + 1].hasPiece() && !hasMoved) {
+                    if(!currentBoard[row + 1][column].hasPiece() && !hasMoved) {
                         flag = true;
                     }
                 }
@@ -71,7 +71,7 @@ public class Pawn extends Piece {
                 }
 
                 else if(tColumn == column && tRow == (row - 2) && !t.hasPiece()) {
-                    if(!currentBoard[column][row - 1].hasPiece() && !hasMoved) {
+                    if(!currentBoard[row - 1][column].hasPiece() && !hasMoved) {
                         flag = true;
                     }
                 }
