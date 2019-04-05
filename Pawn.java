@@ -71,13 +71,13 @@ public class Pawn extends Piece {
                 }
 
                 else if(tColumn == column && tRow == (row - 2) && !t.hasPiece()) {
-                    if(!currentBoard[row - 1][column].hasPiece() && !hasMoved) {
+                    if(!currentBoard[row - 2][column].hasPiece() && !hasMoved) {
                         flag = true;
                     }
                 }
 
                 else if((tColumn == (column + 1) || tColumn == (column - 1)) && tRow == (row - 1)) {
-                    if(!t.hasPiece() && t.getPiece().getColor() == Color.BLACK) {
+                    if(!t.hasPiece() && t.getPiece().getColor() == Color.WHITE) {
                         flag = true;
                     }
                 }
