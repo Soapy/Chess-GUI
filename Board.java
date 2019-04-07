@@ -4,7 +4,6 @@ public class Board {
     public Board(int row, int column) {
         board = new Tile[row][column];
         createTiles();
-        createPieces();
     }
 
     public void createTiles() {
@@ -16,55 +15,16 @@ public class Board {
         }
     }
 
-    private void createPieces() {
-        createWhitePieces();
-        createBlackPieces();
-    }
-
-    private void createBlackPieces() {
-        for(int i = 0; i < board[1].length; i++) {
-            Pawn pawn = new Pawn(Color.BLACK);
-            board[1][i].setPiece(pawn);
-        }
-
-        //initialize Rooks
-        board[0][0].setPiece(new Rook(Color.BLACK));
-        board[0][7].setPiece(new Rook(Color.BLACK));
-        //initialize knights
-        board[0][1].setPiece(new Knight(Color.BLACK));
-        board[0][6].setPiece(new Knight(Color.BLACK));
-        //initialize bishops
-        board[0][2].setPiece(new Bishop(Color.BLACK));
-        board[0][5].setPiece(new Bishop(Color.BLACK));
-        //initialize queen
-        board[0][3].setPiece(new Queen(Color.BLACK));
-        //initialize king
-        board[0][4].setPiece(new King(Color.BLACK));
-    }
-
-    private void createWhitePieces() {
-        for(int i = 0; i < board[6].length; i++) {
-            Pawn pawn = new Pawn(Color.WHITE);
-            board[6][i].setPiece(pawn);
-        }
-
-        //initialize Rooks
-        board[7][0].setPiece(new Rook(Color.WHITE));
-        board[7][7].setPiece(new Rook(Color.WHITE));
-        //initialize knights
-        board[7][1].setPiece(new Knight(Color.WHITE));
-        board[7][6].setPiece(new Knight(Color.WHITE));
-        //initialize bishops
-        board[7][2].setPiece(new Bishop(Color.WHITE));
-        board[7][5].setPiece(new Bishop(Color.WHITE));
-        //initialize queen
-        board[7][3].setPiece(new Queen(Color.WHITE));
-        //initialize king
-        board[7][4].setPiece(new King(Color.WHITE));
-    }
-
     public Tile[][] getBoard() {
         return board;
+    }
+
+    public Tile getTile(int row, int column) {
+        return board[row][column];
+    }
+
+    public int getRow() {
+        return board.length;
     }
 
     @Override
