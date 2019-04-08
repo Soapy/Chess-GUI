@@ -72,7 +72,6 @@ public class Chess {
     public String toString() {
         StringBuilder sb = new StringBuilder(board.toString());
         sb.append("\nCurrent turn: " + turnCount + "\n");
-        sb.append(board.toString());
 
         return sb.toString();
     }
