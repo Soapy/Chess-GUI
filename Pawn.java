@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Pawn extends Piece {
 
-    //boolean variable to check if the selected Pawn has moved
+    //boolean variable to check if the this Pawn has moved
     private boolean hasMoved;
 
     /**
@@ -34,13 +34,13 @@ public class Pawn extends Piece {
 
     /**
      * Contains the movement logic of the Pawn piece
-     * @param t the tile of the selected Pawn
-     * @param b the existing board
+     * @param t the tile of the this Pawn
+     * @param b the game board with this Pawn
      * @return flag
      */
     @Override
     public boolean move(Tile t, Board b) {
-        //boolean variable that checks if the selected Pawn can move to a Tile
+        //boolean variable that checks if the this Pawn can move to a Tile
         boolean flag = true;
 
         //sets flag to false if t and current tile are the same tile
@@ -73,7 +73,7 @@ public class Pawn extends Piece {
 
                 //if first and second pace if empty
                 else if(tColumn == column && tRow == (row + 2) && !t.hasPiece()) {
-                    //if selected pawn has not moved
+                    //if this pawn has not moved
                     if(!currentBoard[row + 1][column].hasPiece() && !hasMoved) {
                         flag = true;
                     }
@@ -115,15 +115,15 @@ public class Pawn extends Piece {
 
     /**
      *
-     * @param b the existing board
-     * @return legalMoves which is an ArrayList with all the legal moves for the selected Pawn
+     * @param b the board with this Pawn
+     * @return legalMoves which is an ArrayList with all the legal moves for the this Pawn
      */
     @Override
     public ArrayList<Tile> getLegalMoves(Board b) {
-        //ArrayList of legal moves for selected Pawn
+        //ArrayList of legal moves for this Pawn
         ArrayList<Tile> legalMoves = new ArrayList<>();
 
-        //location for selected Pawn
+        //location for this Pawn
         Location myLocation = getTile().getLoc();
         Tile[][] board = b.getBoard();
 
@@ -189,7 +189,7 @@ public class Pawn extends Piece {
                 legalMoves.add(board[row - 2][column]);
             }
         }
-        
+
         return legalMoves;
     }
 }
