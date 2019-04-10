@@ -1,8 +1,9 @@
 /**
- * Handles GUI
+ * Handles GUI and player events
  * TODO: Add GUI
  */
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Chess {
 
@@ -20,6 +21,8 @@ public class Chess {
 
         capturedWhitePieces = new ArrayList<>();
         capturedBlackPieces = new ArrayList<>();
+
+        //play();
     }
 
     private void createWhitePieces() {
@@ -64,8 +67,21 @@ public class Chess {
         board.getTile(0,4).setPiece(new King(Color.BLACK));
     }
 
-    public void testMove() {
-        board.getTile(1, 1).getPiece().move(board.getTile(2, 1), board);
+    public void play() {
+        String input;
+        boolean checkmate = true;
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("White pieces are in lowercase. Black pieces are capitalized.");
+        System.out.println("Enter your moves in algebraic notation (e.g. a0):");
+
+
+        /*while(checkmate) {
+            while(tile1 != null && ) {
+                tile1 = sc.nextLine();
+            }
+        }*/
+
     }
 
     @Override

@@ -42,9 +42,10 @@ public abstract class Piece{
 
     public String toString() {
         String str = this.getClass().getSimpleName();
+        if(color == Color.WHITE) {
+            str = str.toLowerCase();
+        }
         StringBuilder sb = new StringBuilder(str.substring(0, 2));
-        sb.append(color.name().charAt(0));
-
         return sb.toString();
     }
 }

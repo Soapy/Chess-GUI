@@ -127,6 +127,7 @@ public class Pawn extends Piece {
         Location myLocation = getTile().getLoc();
         Tile[][] board = b.getBoard();
 
+        //
         int column = myLocation.getColumn();
         int row = myLocation.getRow();
         int boardColumns = board[0].length; //8
@@ -134,11 +135,11 @@ public class Pawn extends Piece {
 
         //white pawn movement logic
         if(getColor() == Color.WHITE) {
-            //checks if one pace forward is within board bounds and unblocked
+            //checks if one tile forward is within board bounds and unblocked
             if(row + 1 < boardRows && !board[row + 1][column].hasPiece()) {
                 legalMoves.add(board[row + 1][column]);
 
-                //capture right diagonal
+                //moves to the right diagonal tile and captures the piece existing on it
                 if(column + 1 < boardColumns && board[row + 1][column + 1].hasPiece()) {
                     if (board[row + 1][column + 1].getPiece().getColor() == Color.BLACK)
                     {
@@ -146,7 +147,7 @@ public class Pawn extends Piece {
                     }
                 }
 
-                //capture left diagonal
+                //moves to the left diagonal tile and captures the piece existing on it
                 if(column - 1 >= 0 && board[row + 1][column - 1].hasPiece()) {
                     if (board[row + 1][column - 1].getPiece().getColor() == Color.BLACK)
                     {
@@ -155,19 +156,20 @@ public class Pawn extends Piece {
                 }
             }
 
-            //checks if two paces forward is within board bounds and unblocked
-            if(row + 2 < boardRows && !hasMoved && !board[row + 1][column].hasPiece() && !board[row + 2][column].hasPiece()) {
+            //checks if two tiles forward is within board bounds and unblocked
+            if(row + 2 < boardRows && !hasMoved && !board[row + 1][column].hasPiece()
+                    && !board[row + 2][column].hasPiece()) {
                 legalMoves.add(board[row + 2][column]);
             }
         }
 
         //black pawn movement logic
         else {
-            //checks if one pace forward is within board bounds and unblocked
+            //checks if one tile forward is within board bounds and unblocked
             if(row - 1 < boardRows && !board[row - 1][column].hasPiece()) {
                 legalMoves.add(board[row - 1][column]);
 
-                //capture right diagonal
+                //moves to the right diagonal tile and captures the piece existing on it
                 if(column + 1 < boardColumns && !board[row - 1][column + 1].hasPiece()) {
                     if (board[row - 1][column + 1].getPiece().getColor() == Color.BLACK)
                     {
@@ -175,7 +177,7 @@ public class Pawn extends Piece {
                     }
                 }
 
-                //capture left diagonal
+                //moves to the left diagonal tile and captures the piece existing on it
                 if(column - 1 >= 0 && !board[row - 1][column - 1].hasPiece()) {
                     if (board[row - 1][column - 1].getPiece().getColor() == Color.BLACK)
                     {
@@ -184,8 +186,9 @@ public class Pawn extends Piece {
                 }
             }
 
-            //checks if two paces forward is within board bounds and unblocked
-            if(row - 2 >= 0 && !hasMoved && !board[row - 1][column].hasPiece() && !board[row - 2][column].hasPiece()) {
+            //checks if two tiles forward is within board bounds and unblocked
+            if(row - 2 >= 0 && !hasMoved && !board[row - 1][column].hasPiece()
+                    && !board[row - 2][column].hasPiece()) {
                 legalMoves.add(board[row - 2][column]);
             }
         }

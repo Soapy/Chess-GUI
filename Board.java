@@ -31,17 +31,29 @@ public class Board {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
+        int rowCode = 0;
+        char colCode = 'a';
+
+        sb.append(" ");
+        for(int i = 0; i < board.length; i++) {
+            sb.append(" " + colCode + " ");
+            colCode++;
+        }
+        sb.append("\n");
+
         for(Tile[] row : board) {
+            sb.append(rowCode + " ");
             for(Tile column : row) {
                 if(column.hasPiece()) {
                     sb.append(column.getPiece().toString());
                 }
                 else {
-                    sb.append("xxx");
+                    sb.append("xx");
                 }
                 sb.append(" ");
             }
             sb.append("\n");
+            rowCode++;
         }
         return sb.toString();
     }
