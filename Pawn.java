@@ -123,11 +123,9 @@ public class Pawn extends Piece {
         //ArrayList of legal moves for this Pawn
         ArrayList<Tile> legalMoves = new ArrayList<>();
 
-        //location for this Pawn
         Location myLocation = getTile().getLoc();
         Tile[][] board = b.getBoard();
 
-        //
         int column = myLocation.getColumn();
         int row = myLocation.getRow();
         int boardColumns = board[0].length; //8

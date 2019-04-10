@@ -2,12 +2,23 @@ import java.util.ArrayList;
 
 public class King extends Piece {
 
+    /**
+     * King Constructor
+     * @param color assigns a color to the King piece
+     */
     public King(Color color) {
         super(color);
     }
 
+    /**
+     * Contains the movement logic of the King piece
+     * @param t the tile of the this King
+     * @param b the game board with this King
+     * @return flag
+     */
     @Override
     public boolean move(Tile t, Board b) {
+        //boolean variable that checks if the this King  can move to a Tile
         boolean flag = true;
 
         //sets flag to false if t and current tile are the same tile
@@ -41,8 +52,14 @@ public class King extends Piece {
         return flag;
     }
 
+    /**
+     *
+     * @param b the board with this King
+     * @return legalMoves which is an ArrayList with all the legal moves for the this King
+     */
     @Override
     public ArrayList<Tile> getLegalMoves(Board b) {
+        //ArrayList of legal moves for this King
         ArrayList<Tile> legalMoves = new ArrayList<>();
 
         Location myLocation = getTile().getLoc();
