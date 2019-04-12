@@ -1,0 +1,11 @@
+@font-face {
+src: url("");
+}
+
+.label {
+-fx-font-family: "";
+}
+
+.text {
+-fx-font-family: "";
+}
