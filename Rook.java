@@ -10,8 +10,8 @@ public class Rook extends Piece {
 
         //maybe use String.format() instead of ternary??
         //FIX FILE PATH
-        img = color == Color.WHITE ? new Image("file: assets/rook_white.png") :
-                new Image("file: assets/rook_black.png");
+        img = color == Color.WHITE ? new Image("file: assets/pieces/rook_white.png") :
+                new Image("file: assets/pieces/rook_black.png");
         imgView = new ImageView(img);
     }
 

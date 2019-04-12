@@ -1,0 +1,16 @@
+@font-face {
+src: url("assets/fonts/Twitchy.TV.ttf");
+}
+
+.root {
+-fx-background-image: url("assets/icons/startbg.jpg");
+-fx-background-size: cover;
+}
+
+.label {
+-fx-font-family: "TwitchyTV";
+}
+
+.text {
+-fx-font-family: "TwitchyTV";
+}

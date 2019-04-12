@@ -22,12 +22,12 @@ public class ChessGUI extends Stage {
 
     public ChessGUI() throws Exception {
 
-        //FileInputStream input = new FileInputStream("assets/bishop_black.png");
+        FileInputStream input = new FileInputStream("assets/pieces/bishop_black.png");
 
-        //Image img = new Image(input, 80, 80, false, false);
-        //ImageView imgView = new ImageView(img);
+        Image img = new Image(input, 80, 80, false, false);
+        ImageView imgView = new ImageView(img);
 
-        //Label label = new Label("Main Window", imgView);
+        Label label = new Label("Main Window", imgView);
 
         HBox box = new HBox();
         box.setPadding(new Insets(10, 15, 16, 17));
@@ -39,7 +39,7 @@ public class ChessGUI extends Stage {
 
         Button play = new Button("Play");
         play.setPrefSize(300, 150);
-        box.getChildren().addAll(/*label,*/ help, play);
+        box.getChildren().addAll(label, help, play);
         box.setAlignment(Pos.CENTER);
 
         this.setScene(new Scene(box, 1280, 720));

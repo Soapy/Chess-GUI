@@ -20,8 +20,8 @@ public class Pawn extends Piece {
 
         //maybe use String.format() instead of ternary??
         //FIX FILE PATH
-        img = color == Color.WHITE ? new Image("file: assets/pawn_white.png") :
-                new Image("file: assets/pawn_black.png");
+        img = color == Color.WHITE ? new Image("file: assets/pieces/pawn_white.png") :
+                new Image("file: assets/pieces/pawn_black.png");
         imgView = new ImageView(img);
         hasMoved = false;
     }

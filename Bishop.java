@@ -10,8 +10,8 @@ public class Bishop extends Piece {
 
         //maybe use String.format() instead of ternary??
         //FIX FILE PATH
-        img = color == Color.WHITE ? new Image("file: assets/bishop_white.png") :
-                new Image("file: assets/bishop_black.png");
+        img = color == Color.WHITE ? new Image("file: assets/pieces/bishop_white.png") :
+                new Image("file: assets/pieces/bishop_black.png");
         imgView = new ImageView(img);
     }
 

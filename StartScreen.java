@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.FileInputStream;
@@ -19,7 +20,8 @@ public class StartScreen extends Stage {
 
     public StartScreen() {
         label = new Label("Chess JavaFX Edition");
-        //label.setFont();
+
+        label.setFont(Font.font("-fx-font-family: TwitchyTV; -fx-font-size: 100"));
 
         Button versusHuman = new Button("versus Human");
         Button versusComputer = new Button("versus Computer");
@@ -36,11 +38,35 @@ public class StartScreen extends Stage {
         layout.getChildren().addAll(label, versusHuman, versusComputer, computerVersusComputer);
         layout.setAlignment(Pos.CENTER);
 
-        this.setScene(new Scene(layout, 800, 600));
+        Scene scene = new Scene(layout, 800,600);
+        scene.getStylesheets().add("startscreen.css");
+
+        this.setScene(scene);
+
         this.setTitle("Main Menu");
         this.show();
 
         versusHuman.setOnAction(event -> {
+            try {
+                new ChessGUI();
+                close();
+            }
+            catch (Exception e) { //what exception specifically?
+                e.printStackTrace();
+            }
+        });
+
+        versusComputer.setOnAction(event -> {
+            try {
+                new ChessGUI();
+                close();
+            }
+            catch (Exception e) { //what exception specifically?
+                e.printStackTrace();
+            }
+        });
+
+        computerVersusComputer.setOnAction(event -> {
             try {
                 new ChessGUI();
                 close();

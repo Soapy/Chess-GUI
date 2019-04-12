@@ -14,8 +14,8 @@ public class King extends Piece {
 
         //maybe use String.format() instead of ternary??
         //FIX FILE PATH
-        img = color == Color.WHITE ? new Image("file: assets/king_white.png") :
-                new Image("file: assets/king_black.png");
+        img = color == Color.WHITE ? new Image("file: assets/pieces/king_white.png") :
+                new Image("file: assets/pieces/king_black.png");
         imgView = new ImageView(img);
     }
 
