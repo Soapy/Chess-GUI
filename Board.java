@@ -1,4 +1,7 @@
-public class Board {
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+
+public class Board extends GridPane {
     private Tile[][] board; //Maintains a game board.
 
     public Board(int row, int column) {
@@ -10,7 +13,7 @@ public class Board {
         for(int i = 0; i < board.length; i++) {
             for(int j = 0; j < board[i].length; j++) {
                 Location loc = new Location(i, j);
-                board[i][j] = new Tile(loc, loc.toString());
+                board[i][j] = new Tile(loc);
             }
         }
     }

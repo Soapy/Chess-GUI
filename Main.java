@@ -1,10 +1,18 @@
+import javafx.application.Application;
+import javafx.stage.Stage;
+
 /**
  *
  */
 
-public class Main {
+public class Main extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+        new StartScreen();
+    }
+
     public static void main(String[] args) {
-        Chess chess = new Chess();
-        System.out.println(chess);
+        launch(args);
     }
 }

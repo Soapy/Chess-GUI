@@ -1,9 +1,18 @@
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.util.ArrayList;
 
 public class Knight extends Piece {
 
     public Knight(Color color) {
         super(color);
+
+        //maybe use String.format() instead of ternary??
+        //FIX FILE PATH
+        img = color == Color.WHITE ? new Image("file: assets/knight_white.png") :
+                new Image("file: assets/knight_black.png");
+        imgView = new ImageView(img);
     }
 
     @Override

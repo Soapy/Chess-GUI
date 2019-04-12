@@ -67,28 +67,36 @@ public class Chess {
         board.getTile(0,4).setPiece(new King(Color.BLACK));
     }
 
+    public String currentTurn() {
+        return whitePlayerTurn ? Color.WHITE.toString() : Color.BLACK.toString();
+    }
+
+    public Tile[] parseMoves(String playerMove, Color playerTurn) {
+        String move = playerMove.toLowerCase();
+        Tile[] movement = new Tile[2];
+
+        return movement;
+    }
+
     public void play() {
-        String input;
-        boolean checkmate = true;
+        boolean gameState = true;
         Scanner sc = new Scanner(System.in);
+        Tile[] move = null;
 
         System.out.println("White pieces are in lowercase. Black pieces are capitalized.");
-        System.out.println("Enter your moves in algebraic notation (e.g. a0):");
+        System.out.println("Enter your moves in algebraic notation (e.g. a0 to a2):");
+        System.out.println("To stop the game, type \"quit\"");
 
-
-        /*while(checkmate) {
-            while(tile1 != null && ) {
-                tile1 = sc.nextLine();
-            }
-        }*/
-
+        //Movement of all pieces except for Knight in terminal works OK.
+        //TODO: Implement handling for mouse events
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(board.toString());
         sb.append("\nCurrent turn: " + turnCount + "\n");
-
+        sb.append(capturedWhitePieces);
+        sb.append(capturedBlackPieces);
         return sb.toString();
     }
 }

@@ -1,13 +1,24 @@
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import java.util.ArrayList;
 
 public abstract class Piece{
     private final Color color;
     private Tile tile;
+    protected Image img;
+    protected ImageView imgView;
 
     public Piece(Color color) {
         this.color = color;
+        imgView.setFitHeight(120);
+        imgView.setFitWidth(120);
+        imgView.setPreserveRatio(true);
+        imgView.setSmooth(true);
     }
 
+    public ImageView getImageView() {
+        return imgView;
+    }
 
     public Color getColor() {
         return color;
@@ -35,8 +46,6 @@ public abstract class Piece{
     }
 
     public abstract boolean move(Tile t, Board b);
-
-
 
     public abstract ArrayList<Tile> getLegalMoves(Board b);
 

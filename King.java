@@ -1,3 +1,6 @@
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.util.ArrayList;
 
 public class King extends Piece {
@@ -8,6 +11,12 @@ public class King extends Piece {
      */
     public King(Color color) {
         super(color);
+
+        //maybe use String.format() instead of ternary??
+        //FIX FILE PATH
+        img = color == Color.WHITE ? new Image("file: assets/king_white.png") :
+                new Image("file: assets/king_black.png");
+        imgView = new ImageView(img);
     }
 
     /**

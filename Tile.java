@@ -1,13 +1,14 @@
-public class Tile {
+import javafx.scene.control.Button;
+
+public class Tile extends Button {
 
     private Location loc;
     private Piece piece;
-    private String name;
 
-    public Tile(Location loc, String name) {
+    public Tile(Location loc) {
         this.loc = loc;
-        this.name = name;
         piece = null;
+        this.getStyleClass().add("chess-space");
     }
 
     /**

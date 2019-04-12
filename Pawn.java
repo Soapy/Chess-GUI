@@ -1,6 +1,9 @@
 /**
  * Movement logic for the Pawn piece
  */
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.util.ArrayList;
 
 public class Pawn extends Piece {
@@ -14,6 +17,12 @@ public class Pawn extends Piece {
      */
     public Pawn(Color color) {
         super(color);
+
+        //maybe use String.format() instead of ternary??
+        //FIX FILE PATH
+        img = color == Color.WHITE ? new Image("file: assets/pawn_white.png") :
+                new Image("file: assets/pawn_black.png");
+        imgView = new ImageView(img);
         hasMoved = false;
     }
 
