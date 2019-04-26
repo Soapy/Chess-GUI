@@ -1,5 +1,4 @@
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 
@@ -10,9 +9,8 @@ public class Queen extends Piece {
 
         //maybe use String.format() instead of ternary??
         //FIX FILE PATH
-        img = color == Color.WHITE ? new Image("file: assets/pieces/queen_white.png") :
-                new Image("file: assets/pieces/queen_black.png");
-        imgView = new ImageView(img);
+        img = color == Color.WHITE ? new Image("assets/pieces/queen_white.png") :
+                new Image("assets/pieces/queen_black.png");
     }
 
     @Override
@@ -35,14 +33,14 @@ public class Queen extends Piece {
 
             Tile[][] currentBoard = b.getBoard();
 
-            int column = currentLoc.getColumn();
-            int row = currentLoc.getRow();
-            int tColumn = tLoc.getColumn();
-            int tRow = tLoc.getRow();
+            int x = currentLoc.getX();
+            int y = currentLoc.getY();
+            int tX = tLoc.getX();
+            int tY = tLoc.getY();
             // move east
-            if(row == tRow && column < tColumn) {
-                for(int i = column + 1; i < tColumn; i++) {
-                    Tile temp = currentBoard[row][i];
+            if(x == tX && y < tY) {
+                for(int i = y + 1; i < tY; i++) {
+                    Tile temp = currentBoard[x][i];
                     flag = temp.hasPiece();
                     if(flag) {
                         break;
@@ -50,9 +48,9 @@ public class Queen extends Piece {
                 }
             }
             //move west
-            else if(row == tRow && column > tColumn) {
-                for(int i = column - 1; i > tColumn; i--) {
-                    Tile temp = currentBoard[row][i];
+            else if(x == tX && y > tY) {
+                for(int i = y - 1; i > tY; i--) {
+                    Tile temp = currentBoard[x][i];
                     flag = temp.hasPiece();
                     if(flag) {
                         break;
@@ -60,9 +58,9 @@ public class Queen extends Piece {
                 }
             }
             //move north
-            else if(column == tColumn && row < tRow) {
-                for(int i = row + 1; i < tRow; i++) {
-                    Tile temp = currentBoard[i][column];
+            else if(y == tY && x < tX) {
+                for(int i = x + 1; i < tX; i++) {
+                    Tile temp = currentBoard[i][y];
                     flag = temp.hasPiece();
                     if(flag) {
                         break;
@@ -70,9 +68,9 @@ public class Queen extends Piece {
                 }
             }
             //move south
-            else if(column == tColumn && row > tRow) {
-                for(int i = row - 1; i > tRow; i--) {
-                    Tile temp = currentBoard[i][column];
+            else if(y == tY && x > tX) {
+                for(int i = x - 1; i > tX; i--) {
+                    Tile temp = currentBoard[i][y];
                     flag = temp.hasPiece();
                     if(flag) {
                         break;
@@ -80,10 +78,10 @@ public class Queen extends Piece {
                 }
             }
 
-            else if(Math.abs(tRow - row) == Math.abs(tColumn - column)) {
+            else if(Math.abs(tX - x) == Math.abs(tY - y)) {
                 // move northeast
-                if(row < tRow && column < tColumn) {
-                    for(int i = row + 1, j = (column + 1); i < tRow && j < tColumn; i++, j++) {
+                if(x < tX && y < tY) {
+                    for(int i = x + 1, j = (y + 1); i < tX && j < tY; i++, j++) {
                         Tile temp = currentBoard[i][j];
                         flag = temp.hasPiece();
                         if(flag) {
@@ -92,8 +90,8 @@ public class Queen extends Piece {
                     }
                 }
                 // move southeast
-                else if(row < tRow && column > tColumn) {
-                    for(int i = row + 1, j = (column - 1); i < tRow && j > tColumn; i++, j--) {
+                else if(x < tX && y > tY) {
+                    for(int i = x + 1, j = (y - 1); i < tX && j > tX; i++, j--) {
                         Tile temp = currentBoard[i][j];
                         flag = temp.hasPiece();
                         if(flag) {
@@ -102,8 +100,8 @@ public class Queen extends Piece {
                     }
                 }
                 // move northwest
-                else if(row > tRow && column < tColumn) {
-                    for(int i = row - 1, j = (column + 1); i > tRow && j < tColumn; i--, j++) {
+                else if(x > tX && y < tY) {
+                    for(int i = x - 1, j = (y + 1); i > tX && j < tY; i--, j++) {
                         Tile temp = currentBoard[i][j];
                         flag = temp.hasPiece();
                         if(flag) {
@@ -112,8 +110,8 @@ public class Queen extends Piece {
                     }
                 }
                 // move southwest
-                else if(row > tRow && column > tColumn) {
-                    for(int i = row - 1, j = (column - 1); i > tRow && j > tColumn; i--, j--) {
+                else if(x > tX) {
+                    for(int i = x - 1, j = (y - 1); i > tX && j > tY; i--, j--) {
                         Tile temp = currentBoard[i][j];
                         flag = temp.hasPiece();
                         if(flag) {
@@ -136,45 +134,60 @@ public class Queen extends Piece {
         Location myLocation = getTile().getLoc();
         Tile[][] board = b.getBoard();
 
-        int column = myLocation.getColumn();
-        int row = myLocation.getRow();
+        int x = myLocation.getX();
+        int y = myLocation.getY();
         int boardColumns = board[0].length;
         int boardRows = board.length;
 
         //moves west and east
         for(int i = 0; i < boardColumns; i++) {
-            if(i != column) {
-                legalMoves.add(board[row][i]);
+            if(i != y) {
+                legalMoves.add(board[x][i]);
             }
         }
 
         //moves north and south
         for(int i = 0; i < boardRows; i++) {
-            if(i != row) {
-                legalMoves.add(board[i][column]);
+            if(i != x) {
+                legalMoves.add(board[i][y]);
             }
         }
 
         //moves northeast
-        for(int i = column + 1, j = row + 1; i < boardColumns && j < boardRows; i++, j++) {
-            legalMoves.add(board[j][i]);
+        for(int i = x + 1, j = y + 1; i < boardColumns && j < boardRows; i++, j++) {
+            legalMoves.add(board[i][j]);
         }
 
         //moves southeast
-        for(int i = column + 1, j = row - 1; i < boardColumns && j >= 0; i++, j--) {
-            legalMoves.add(board[j][i]);
+        for(int i = x + 1, j = y - 1; i < boardColumns && j >= 0; i++, j--) {
+            legalMoves.add(board[i][j]);
         }
 
         //moves northwest
-        for(int i = column - 1, j = row + 1; i >= 0 && j < boardRows; i--, j++) {
-            legalMoves.add(board[j][i]);
+        for(int i = x - 1, j = y + 1; i >= 0 && j < boardRows; i--, j++) {
+            legalMoves.add(board[i][j]);
         }
 
         //moves southwest
-        for(int i = column - 1, j = row - 1; i >= 0 && j >= 0; i--, j--) {
-            legalMoves.add(board[j][i]);
+        for(int i = x - 1, j = y - 1; i >= 0 && j >= 0; i--, j--) {
+            legalMoves.add(board[i][j]);
         }
-
         return legalMoves;
+    }
+
+    public Moveset[] getPieceMoves()
+    {
+        Moveset[] m =
+                {
+                        Moveset.UP,
+                        Moveset.UP_RIGHT,
+                        Moveset.RIGHT,
+                        Moveset.DOWN_RIGHT,
+                        Moveset.DOWN,
+                        Moveset.DOWN_LEFT,
+                        Moveset.LEFT,
+                        Moveset.UP_LEFT
+                };
+        return m;
     }
 }

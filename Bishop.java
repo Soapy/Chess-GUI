@@ -1,6 +1,4 @@
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 import java.util.ArrayList;
 
 public class Bishop extends Piece {
@@ -10,9 +8,8 @@ public class Bishop extends Piece {
 
         //maybe use String.format() instead of ternary??
         //FIX FILE PATH
-        img = color == Color.WHITE ? new Image("file: assets/pieces/bishop_white.png") :
-                new Image("file: assets/pieces/bishop_black.png");
-        imgView = new ImageView(img);
+        img = color == Color.WHITE ? new Image("assets/pieces/bishop_white.png") :
+                new Image("assets/pieces/bishop_black.png");
     }
 
     @Override
@@ -35,15 +32,15 @@ public class Bishop extends Piece {
 
             Tile[][] currentBoard = b.getBoard();
 
-            int column = currentLoc.getColumn();
-            int row = currentLoc.getRow();
-            int tColumn = tLoc.getColumn();
-            int tRow = tLoc.getRow();
+            int x = currentLoc.getX();
+            int y = currentLoc.getY();
+            int tX = tLoc.getX();
+            int tY = tLoc.getY();
 
-            if(Math.abs(tRow - row) == Math.abs(tColumn - column)) {
+            if(Math.abs(tX - x) == Math.abs(tY - y)) {
                 // move northeast
-                if(row < tRow && column < tColumn) {
-                    for(int i = row + 1, j = (column + 1); i < tRow && j < tColumn; i++, j++) {
+                if(x < tX && y < tY) {
+                    for(int i = x + 1, j = (y + 1); i < tX && j < tY; i++, j++) {
                         Tile temp = currentBoard[i][j];
                         flag = temp.hasPiece();
                         if(flag) {
@@ -52,8 +49,8 @@ public class Bishop extends Piece {
                     }
                 }
                 // move southeast
-                else if(row < tRow && column > tColumn) {
-                    for(int i = row + 1, j = (column - 1); i < tRow && j > tColumn; i++, j--) {
+                else if(x < tX && y > tY) {
+                    for(int i = x + 1, j = (y - 1); i < tX && j > tY; i++, j--) {
                         Tile temp = currentBoard[i][j];
                         flag = temp.hasPiece();
                         if(flag) {
@@ -62,8 +59,8 @@ public class Bishop extends Piece {
                     }
                 }
                 // move northwest
-                else if(row > tRow && column < tColumn) {
-                    for(int i = row - 1, j = (column + 1); i > tRow && j < tColumn; i--, j++) {
+                else if(x > tX && y < tY) {
+                    for(int i = x - 1, j = (y + 1); i > tX && j < tY; i--, j++) {
                         Tile temp = currentBoard[i][j];
                         flag = temp.hasPiece();
                         if(flag) {
@@ -72,8 +69,8 @@ public class Bishop extends Piece {
                     }
                 }
                 // move southwest
-                else if(row > tRow && column > tColumn) {
-                    for(int i = row - 1, j = (column - 1); i > tRow && j > tColumn; i--, j--) {
+                else if(x > tX && y > tY) {
+                    for(int i = x - 1, j = (y - 1); i > tX && j > tY; i--, j--) {
                         Tile temp = currentBoard[i][j];
                         flag = temp.hasPiece();
                         if(flag) {
@@ -96,31 +93,42 @@ public class Bishop extends Piece {
         Location myLocation = getTile().getLoc();
         Tile[][] board = b.getBoard();
 
-        int column = myLocation.getColumn();
-        int row = myLocation.getRow();
+        int x = myLocation.getX();
+        int y = myLocation.getY();
         int boardColumns = board[0].length;
         int boardRows = board.length;
 
         //moves northeast
-        for(int i = column + 1, j = row + 1; i < boardColumns && j < boardRows; i++, j++) {
-            legalMoves.add(board[j][i]);
+        for(int i = x + 1, j = y + 1; i < boardColumns && j < boardRows; i++, j++) {
+            legalMoves.add(board[i][j]);
         }
 
         //moves southeast
-        for(int i = column + 1, j = row - 1; i < boardColumns && j >= 0; i++, j--) {
-            legalMoves.add(board[j][i]);
+        for(int i = x + 1, j = y - 1; i < boardColumns && j >= 0; i++, j--) {
+            legalMoves.add(board[i][j]);
         }
 
         //moves northwest
-        for(int i = column - 1, j = row + 1; i >= 0 && j < boardRows; i--, j++) {
-            legalMoves.add(board[j][i]);
+        for(int i = x - 1, j = y + 1; i >= 0 && j < boardRows; i--, j++) {
+            legalMoves.add(board[i][j]);
         }
 
         //moves southwest
-        for(int i = column - 1, j = row - 1; i >= 0 && j >= 0; i--, j--) {
-            legalMoves.add(board[j][i]);
+        for(int i = x - 1, j = y - 1; i >= 0 && j >= 0; i--, j--) {
+            legalMoves.add(board[i][j]);
         }
-
         return legalMoves;
+    }
+
+    public Moveset[] getPieceMoves()
+    {
+        Moveset[] m =
+                {
+                        Moveset.UP_RIGHT,
+                        Moveset.DOWN_RIGHT,
+                        Moveset.DOWN_LEFT,
+                        Moveset.UP_LEFT
+                };
+        return m;
     }
 }

@@ -2,15 +2,11 @@
  * Movement logic for the Pawn piece
  */
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 import java.util.ArrayList;
 
 public class Pawn extends Piece {
 
     //boolean variable to check if the this Pawn has moved
-    private boolean hasMoved;
-
     /**
      * Pawn Constructor
      * @param color assigns a color to the Pawn piece
@@ -20,10 +16,8 @@ public class Pawn extends Piece {
 
         //maybe use String.format() instead of ternary??
         //FIX FILE PATH
-        img = color == Color.WHITE ? new Image("file: assets/pieces/pawn_white.png") :
-                new Image("file: assets/pieces/pawn_black.png");
-        imgView = new ImageView(img);
-        hasMoved = false;
+        img = color == Color.WHITE ? new Image("assets/pieces/pawn_white.png") :
+                new Image("assets/pieces/pawn_black.png");
     }
 
     /**
@@ -67,29 +61,29 @@ public class Pawn extends Piece {
 
         Tile[][] currentBoard = b.getBoard();
 
-        int column = currentLoc.getColumn();
-        int row = currentLoc.getRow();
-        int tColumn = tLoc.getColumn();
-        int tRow = tLoc.getRow();
+        int x = currentLoc.getX();
+        int y = currentLoc.getY();
+        int tX = tLoc.getX();
+        int tY = tLoc.getY();
 
         if(flag) {
             // check moves if pawn is white
             if(getColor() == Color.WHITE) {
                 //if first pace forward is empty
-                if(tColumn == column && tRow == (row + 1) && !t.hasPiece()) {
+                if(tX == x && tY == (y + 1) && !t.hasPiece()) {
                     flag = true;
                 }
 
-                //if first and second pace if empty
-                else if(tColumn == column && tRow == (row + 2) && !t.hasPiece()) {
+                //if first and second space if empty
+                else if(tX == x && tY == (y + 2) && !t.hasPiece()) {
                     //if this pawn has not moved
-                    if(!currentBoard[row + 1][column].hasPiece() && !hasMoved) {
+                    if(!currentBoard[x][y + 1].hasPiece() && !hasMoved) {
                         flag = true;
                     }
                 }
 
-                //capture
-                else if((tColumn == (column + 1) || tColumn == (column - 1)) && tRow == (row + 1)) {
+                //captures
+                else if((tX == (x + 1) || tX == (x - 1)) && tY == (y + 1)) {
                     if(t.hasPiece() && t.getPiece().getColor() == Color.BLACK) {
                         flag = true;
                     }
@@ -98,20 +92,20 @@ public class Pawn extends Piece {
 
             // check moves if pawn is black
             else {
-                //if first pace forward is empty
-                if(tColumn == column && tRow == (column - 1) && !t.hasPiece()) {
+                //if first space forward is empty
+                if(tX == x && tY == (y - 1) && !t.hasPiece()) {
                     flag = true;
                 }
 
-                //if first and second pace if empty
-                else if(tColumn == column && tRow == (row - 2) && !t.hasPiece()) {
-                    if(!currentBoard[row - 2][column].hasPiece() && !hasMoved) {
+                //if first and second space if empty
+                else if(tX == x && tY == (y - 2) && !t.hasPiece()) {
+                    if(!currentBoard[x][y - 1].hasPiece() && !hasMoved) {
                         flag = true;
                     }
                 }
 
                 //capture
-                else if((tColumn == (column + 1) || tColumn == (column - 1)) && tRow == (row - 1)) {
+                else if((tX == (x + 1) || tX == (x - 1)) && tY == (y - 1)) {
                     if(!t.hasPiece() && t.getPiece().getColor() == Color.WHITE) {
                         flag = true;
                     }
@@ -135,71 +129,119 @@ public class Pawn extends Piece {
         Location myLocation = getTile().getLoc();
         Tile[][] board = b.getBoard();
 
-        int column = myLocation.getColumn();
-        int row = myLocation.getRow();
-        int boardColumns = board[0].length; //8
-        int boardRows = board.length; //8
+        int x = myLocation.getX();
+        int y = myLocation.getY();
+        int boardColumns = board[0].length;
+        int boardRows = board.length;
 
         //white pawn movement logic
         if(getColor() == Color.WHITE) {
             //checks if one tile forward is within board bounds and unblocked
-            if(row + 1 < boardRows && !board[row + 1][column].hasPiece()) {
-                legalMoves.add(board[row + 1][column]);
+            if(y + 1 < boardRows && !board[x][y + 1].hasPiece()) {
+                legalMoves.add(board[x][y + 1]);
 
                 //moves to the right diagonal tile and captures the piece existing on it
-                if(column + 1 < boardColumns && board[row + 1][column + 1].hasPiece()) {
-                    if (board[row + 1][column + 1].getPiece().getColor() == Color.BLACK)
+                if(x + 1 < boardColumns && board[x + 1][y + 1].hasPiece()) {
+                    if(board[x + 1][y + 1].getPiece().getColor() == Color.BLACK)
                     {
-                        legalMoves.add(board[row + 1][column + 1]);
+                        legalMoves.add(board[x + 1][y + 1]);
                     }
                 }
 
                 //moves to the left diagonal tile and captures the piece existing on it
-                if(column - 1 >= 0 && board[row + 1][column - 1].hasPiece()) {
-                    if (board[row + 1][column - 1].getPiece().getColor() == Color.BLACK)
+                if(x - 1 >= 0 && board[x - 1][y + 1].hasPiece()) {
+                    if(board[x - 1][y + 1].getPiece().getColor() == Color.BLACK)
                     {
-                        legalMoves.add(board[row + 1][column - 1]);
+                        legalMoves.add(board[x - 1][y + 1]);
                     }
                 }
             }
 
             //checks if two tiles forward is within board bounds and unblocked
-            if(row + 2 < boardRows && !hasMoved && !board[row + 1][column].hasPiece()
-                    && !board[row + 2][column].hasPiece()) {
-                legalMoves.add(board[row + 2][column]);
+            if(y + 2 < boardRows && !hasMoved && !board[x][y + 1].hasPiece()
+                    && !board[x][y + 2].hasPiece()) {
+                legalMoves.add(board[x][y + 2]);
             }
         }
 
         //black pawn movement logic
         else {
             //checks if one tile forward is within board bounds and unblocked
-            if(row - 1 < boardRows && !board[row - 1][column].hasPiece()) {
-                legalMoves.add(board[row - 1][column]);
+            if(y - 1 < boardRows && !board[x][y - 1].hasPiece()) {
+                legalMoves.add(board[x][y - 1]);
 
                 //moves to the right diagonal tile and captures the piece existing on it
-                if(column + 1 < boardColumns && !board[row - 1][column + 1].hasPiece()) {
-                    if (board[row - 1][column + 1].getPiece().getColor() == Color.BLACK)
+                if(x + 1 < boardColumns && !board[x - 1][y + 1].hasPiece()) {
+                    if (board[x + 1][y - 1].getPiece().getColor() == Color.BLACK)
                     {
-                        legalMoves.add(board[row - 1][column + 1]);
+                        legalMoves.add(board[x + 1][y - 1]);
                     }
                 }
 
                 //moves to the left diagonal tile and captures the piece existing on it
-                if(column - 1 >= 0 && !board[row - 1][column - 1].hasPiece()) {
-                    if (board[row - 1][column - 1].getPiece().getColor() == Color.BLACK)
+                if(x - 1 >= 0 && !board[x - 1][y - 1].hasPiece()) {
+                    if (board[x - 1][y - 1].getPiece().getColor() == Color.BLACK)
                     {
-                        legalMoves.add(board[row - 1][column - 1]);
+                        legalMoves.add(board[x - 1][y - 1]);
                     }
                 }
             }
 
             //checks if two tiles forward is within board bounds and unblocked
-            if(row - 2 >= 0 && !hasMoved && !board[row - 1][column].hasPiece()
-                    && !board[row - 2][column].hasPiece()) {
-                legalMoves.add(board[row - 2][column]);
+            if(y - 2 >= 0 && !hasMoved && !board[x][y - 2].hasPiece()
+                    && !board[x][y - 2].hasPiece()) {
+                legalMoves.add(board[x][y - 2]);
             }
         }
-
         return legalMoves;
+    }
+
+    public Moveset[] getPieceMoves()
+    {
+        /*
+         * Pawn movement is HIGHLY conditional, so this branches.
+         * The list ensures correct direction and two-space movement.
+         * All the board-dependent things (like diagonal iff capturing) are ChessBoard's job.
+         */
+        boolean isWhite = this.getColor() == Color.WHITE;
+
+        //braces ensure toArray() works later, see ArrayList docs for why
+        Moveset[] moves = {};
+
+        //since pawns will never be white AND black, only returns moves of correct direction
+        if(isWhite)
+        {
+            ArrayList<Moveset> whiteMoves = new ArrayList<>();
+
+            //standard straight, can't capture using this
+            whiteMoves.add(Moveset.UP);
+
+            //diagonals, can and must capture using this
+            whiteMoves.add(Moveset.UP_RIGHT);
+            whiteMoves.add(Moveset.UP_LEFT);
+
+            //if hasn't moved, UP is valid board move, can't capture using this
+            if(!hasMoved) {whiteMoves.add(Moveset.DOUBLE_UP);}
+
+            moves = whiteMoves.toArray(moves);
+        }
+        else
+        {
+            ArrayList<Moveset> blackMoves = new ArrayList<>();
+
+            //standard straight, can't capture
+            blackMoves.add(Moveset.DOWN);
+
+            //diagonals, can and must capture using this
+            blackMoves.add(Moveset.DOWN_RIGHT);
+            blackMoves.add(Moveset.DOWN_LEFT);
+
+            //if hasn't moved, DOWN is valid board move, can't capture using this
+            if(!hasMoved) {blackMoves.add(Moveset.DOUBLE_DOWN);}
+
+            moves = blackMoves.toArray(moves);
+        }
+
+        return moves;
     }
 }

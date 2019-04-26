@@ -1,5 +1,4 @@
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 
@@ -10,9 +9,8 @@ public class Knight extends Piece {
 
         //maybe use String.format() instead of ternary??
         //FIX FILE PATH
-        img = color == Color.WHITE ? new Image("file: assets/pieces/knight_white.png") :
-                new Image("file: assets/pieces/knight_black.png");
-        imgView = new ImageView(img);
+        img = color == Color.WHITE ? new Image("assets/pieces/knight_white.png") :
+                new Image("assets/pieces/knight_black.png");
     }
 
     @Override
@@ -35,10 +33,10 @@ public class Knight extends Piece {
 
             Tile[][] currentBoard = b.getBoard();
 
-            int column = currentLoc.getColumn();
-            int row = currentLoc.getRow();
-            int tColumn = tLoc.getColumn();
-            int tRow = tLoc.getRow();
+            int x = currentLoc.getX();
+            int y = currentLoc.getY();
+            int tX = tLoc.getX();
+            int tY = tLoc.getY();
 
             if(getColor() == Color.WHITE) {
 
@@ -57,45 +55,61 @@ public class Knight extends Piece {
         Location myLocation = getTile().getLoc();
         Tile[][] board = b.getBoard();
 
-        int column = myLocation.getColumn();
-        int row = myLocation.getRow();
+        int x = myLocation.getX();
+        int y = myLocation.getY();
         int boardColumns = board[0].length;
         int boardRows = board.length;
 
         //knight can move forward
-        if(row + 1 < boardRows && column - 2 >= 0) {
-            legalMoves.add(board[row + 1][column - 2]);
+        if(x + 1 < boardRows && y - 2 >= 0) {
+            legalMoves.add(board[x + 1][y - 2]);
         }
 
-        if(row + 2 < boardRows && column - 1 >= 0) {
-            legalMoves.add(board[row + 2][column - 1]);
+        if(x + 2 < boardRows && y - 1 >= 0) {
+            legalMoves.add(board[x + 2][y - 1]);
         }
 
-        if(row + 2 < boardRows && column + 1 < boardColumns) {
-            legalMoves.add(board[row + 2][column + 1]);
+        if(x + 2 < boardRows && y + 1 < boardColumns) {
+            legalMoves.add(board[x + 2][y + 1]);
         }
 
-        if(row + 1 < boardRows && column + 2 < boardColumns) {
-            legalMoves.add(board[row + 1][column + 2]);
+        if(x + 1 < boardRows && y + 2 < boardColumns) {
+            legalMoves.add(board[x + 1][y + 2]);
         }
 
         //knight can move backward
-        if(row + -1 >= 0 && column - 2 >= 0) {
-            legalMoves.add(board[row + 1][column - 2]);
+        if(x - 1 >= 0 && y - 2 >= 0) {
+            legalMoves.add(board[x + 1][y - 2]);
         }
 
-        if(row - 2 >= 0 && column - 1 >= 0) {
-            legalMoves.add(board[row + 2][column - 1]);
+        if(x - 2 >= 0 && y - 1 >= 0) {
+            legalMoves.add(board[x + 2][y - 1]);
         }
 
-        if(row - 2 >= 0 && column + 1 < boardColumns) {
-            legalMoves.add(board[row + 2][column + 1]);
+        if(x - 2 >= 0 && y + 1 < boardColumns) {
+            legalMoves.add(board[x + 2][y + 1]);
         }
 
-        if(row - 1 >= 0 && column + 2 < boardColumns) {
-            legalMoves.add(board[row + 1][column + 2]);
+        if(x - 1 >= 0 && y + 2 < boardColumns) {
+            legalMoves.add(board[x + 1][y + 2]);
         }
 
         return legalMoves;
+    }
+
+    @Override
+    public Moveset[] getPieceMoves() {
+        Moveset[] m =
+                {
+                        Moveset.KNIGHT_LEFT_UP,
+                        Moveset.KNIGHT_UP_LEFT,
+                        Moveset.KNIGHT_UP_RIGHT,
+                        Moveset.KNIGHT_RIGHT_UP,
+                        Moveset.KNIGHT_RIGHT_DOWN,
+                        Moveset.KNIGHT_DOWN_RIGHT,
+                        Moveset.KNIGHT_DOWN_LEFT,
+                        Moveset.KNIGHT_LEFT_DOWN
+                };
+        return m;
     }
 }

@@ -1,5 +1,4 @@
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 
@@ -10,9 +9,8 @@ public class Rook extends Piece {
 
         //maybe use String.format() instead of ternary??
         //FIX FILE PATH
-        img = color == Color.WHITE ? new Image("file: assets/pieces/rook_white.png") :
-                new Image("file: assets/pieces/rook_black.png");
-        imgView = new ImageView(img);
+        img = color == Color.WHITE ? new Image("assets/pieces/rook_white.png") :
+                new Image("assets/pieces/rook_black.png");
     }
 
     @Override
@@ -33,14 +31,15 @@ public class Rook extends Piece {
             Location currentLoc = getTile().getLoc();
             Location tLoc = t.getLoc();
             Tile[][] currentBoard = b.getBoard();
-            int column = currentLoc.getColumn();
-            int row = currentLoc.getRow();
-            int tColumn = tLoc.getColumn();
-            int tRow = tLoc.getRow();
+
+            int x = currentLoc.getX();
+            int y = currentLoc.getY();
+            int tX = tLoc.getX();
+            int tY = tLoc.getY();
             // move east
-            if(row == tRow && column < tColumn) {
-                for(int i = column + 1; i < tColumn; i++) {
-                    Tile temp = currentBoard[row][i];
+            if(x == tX && y < tY) {
+                for(int i = y + 1; i < tY; i++) {
+                    Tile temp = currentBoard[x][i];
                     flag = temp.hasPiece();
                     if(flag) {
                         break;
@@ -48,9 +47,9 @@ public class Rook extends Piece {
                 }
             }
             //move west
-            else if(row == tRow && column > tColumn) {
-                for(int i = column - 1; i > tColumn; i--) {
-                    Tile temp = currentBoard[row][i];
+            else if(x == tX && y > tY) {
+                for(int i = y - 1; i > tY; i--) {
+                    Tile temp = currentBoard[x][i];
                     flag = temp.hasPiece();
                     if(flag) {
                         break;
@@ -58,9 +57,9 @@ public class Rook extends Piece {
                 }
             }
             //move north
-            else if(column == tColumn && row < tRow) {
-                for(int i = row + 1; i < tRow; i++) {
-                    Tile temp = currentBoard[i][column];
+            else if(y == tY && x < tX) {
+                for(int i = x + 1; i < tX; i++) {
+                    Tile temp = currentBoard[i][y];
                     flag = temp.hasPiece();
                     if(flag) {
                         break;
@@ -68,9 +67,9 @@ public class Rook extends Piece {
                 }
             }
             //move south
-            else if(column == tColumn && row > tRow) {
-                for(int i = row - 1; i > tRow; i--) {
-                    Tile temp = currentBoard[i][column];
+            else if(y == tY && x > tX) {
+                for(int i = x - 1; i > tX; i--) {
+                    Tile temp = currentBoard[i][y];
                     flag = temp.hasPiece();
                     if(flag) {
                         break;
@@ -92,25 +91,36 @@ public class Rook extends Piece {
         Location myLocation = getTile().getLoc();
         Tile[][] board = b.getBoard();
 
-        int column = myLocation.getColumn();
-        int row = myLocation.getRow();
+        int x = myLocation.getX();
+        int y = myLocation.getY();
         int boardColumns = board[0].length;
         int boardRows = board.length;
 
         //moves west and east
         for(int i = 0; i < boardColumns; i++) {
-            if(i != column) {
-                legalMoves.add(board[row][i]);
+            if(i != x) {
+                legalMoves.add(board[i][y]);
             }
         }
 
         //moves north and south
         for(int i = 0; i < boardRows; i++) {
-            if(i != row) {
-                legalMoves.add(board[i][column]);
+            if(i != y) {
+                legalMoves.add(board[x][i]);
             }
         }
-
         return legalMoves;
+    }
+
+    @Override
+    public Moveset[] getPieceMoves() {
+        Moveset[] m =
+                {
+                        Moveset.UP,
+                        Moveset.RIGHT,
+                        Moveset.DOWN,
+                        Moveset.LEFT
+                };
+        return m;
     }
 }

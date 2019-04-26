@@ -1,32 +1,30 @@
 public class Location {
 
-    private int row;
-    private int column;
+    private int x;
+    private int y;
 
-    public Location(int row, int column) {
-        this.row = row;
-        this.column = column;
+    public Location(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
-    public int getRow() {
-        return row;
+    public int getX() {
+        return x;
     }
 
-    public void setRow(int row) {
-        this.row = row;
+    public void setX(int x) {
+        this.x = x;
     }
 
-    public int getColumn() {
-        return column;
+    public int getY() {
+        return y;
     }
 
-    public void setColumn(int column) {
-        this.column = column;
+    public void setY(int y) {
+        this.y = y;
     }
 
     public String toString() {
-        StringBuilder sb = new StringBuilder('a' + column);
-        sb.append(row);
-        return sb.toString();
+        return x + " " + y;
     }
 }

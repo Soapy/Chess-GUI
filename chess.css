@@ -1,11 +1,21 @@
-@font-face {
-src: url("");
+.chess {
+    -fx-min-height:  90px;
+    -fx-min-width:   90px;
+    -fx-pref-height: 90px;
+    -fx-pref-width:  90px;
+    -fx-max-height:  90px;
+    -fx-max-width:   90px;
+    -fx-background-radius: 0em;
 }
 
-.label {
--fx-font-family: "";
+.chess-black {
+    -fx-background-color:#A0522D;
 }
 
-.text {
--fx-font-family: "";
+.chess-white {
+    -fx-background-color:#F4A460;
+}
+
+.chess-current-tile {
+    -fx-background-color:#228B22;
 }

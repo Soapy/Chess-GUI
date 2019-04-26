@@ -1,14 +1,17 @@
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 
 public class Tile extends Button {
 
     private Location loc;
     private Piece piece;
 
-    public Tile(Location loc) {
+    public Tile(Location loc, boolean isWhite) {
         this.loc = loc;
         piece = null;
-        this.getStyleClass().add("chess-space");
+
+        this.getStyleClass().add("chess");
+        this.getStyleClass().add(isWhite ? "chess-white" : "chess-black");
     }
 
     /**
@@ -23,6 +26,11 @@ public class Tile extends Button {
      */
     public void setPiece(Piece piece) {
         this.piece = piece;
+
+        ImageView img = this.piece == null ? new ImageView() : new ImageView(piece.getImage());
+        img.setFitWidth(50);
+        img.setFitHeight(50);
+        this.setGraphic(img);
     }
 
     public Piece getPiece() {
@@ -37,7 +45,7 @@ public class Tile extends Button {
      */
     public Piece removePiece() {
         Piece p = piece;
-        piece = null;
+        setPiece(null);
         return p;
     }
 

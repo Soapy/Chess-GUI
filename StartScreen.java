@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -16,29 +17,33 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class StartScreen extends Stage {
-    private Label label;
 
     public StartScreen() {
-        label = new Label("Chess JavaFX Edition");
 
-        label.setFont(Font.font("-fx-font-family: TwitchyTV; -fx-font-size: 100"));
+        Text text = new Text("Chess");
+        text.setStyle("-fx-font-weight: bold");
+        text.setFont(Font.font("Verdana", 70));
+        text.setFill(Color.YELLOWGREEN);
 
         Button versusHuman = new Button("versus Human");
-        Button versusComputer = new Button("versus Computer");
-        Button computerVersusComputer = new Button("Computer versus Computer");
+        Button versusComputer = new Button("versus CPU");
+        Button computerVersusComputer = new Button("CPU versus CPU");
 
-        versusHuman.setPrefSize(150, 100);
-        versusComputer.setPrefSize(150, 100);
-        computerVersusComputer.setPrefSize(150, 100);
+        versusHuman.setPrefSize(120, 90);
+        versusComputer.setPrefSize(120, 90);
+        computerVersusComputer.setPrefSize(120, 90);
 
         VBox layout = new VBox();
         layout.setPadding(new Insets(10));
         layout.setSpacing(50.0);
 
-        layout.getChildren().addAll(label, versusHuman, versusComputer, computerVersusComputer);
+        //Tile tile = new Tile(new Location(0, 0), false);
+        layout.getChildren().addAll(text, versusHuman, versusComputer, computerVersusComputer);
         layout.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(layout, 800,600);
+        this.getIcons().add(new Image("assets/pieces/pawn_black.png"));
+
+        Scene scene = new Scene(layout, 1024,640);
         scene.getStylesheets().add("startscreen.css");
 
         this.setScene(scene);
@@ -48,7 +53,7 @@ public class StartScreen extends Stage {
 
         versusHuman.setOnAction(event -> {
             try {
-                new ChessGUI();
+                new Chess(2);
                 close();
             }
             catch (Exception e) { //what exception specifically?
@@ -58,7 +63,7 @@ public class StartScreen extends Stage {
 
         versusComputer.setOnAction(event -> {
             try {
-                new ChessGUI();
+                new Chess(1);
                 close();
             }
             catch (Exception e) { //what exception specifically?
@@ -68,7 +73,7 @@ public class StartScreen extends Stage {
 
         computerVersusComputer.setOnAction(event -> {
             try {
-                new ChessGUI();
+                new Chess(0);
                 close();
             }
             catch (Exception e) { //what exception specifically?

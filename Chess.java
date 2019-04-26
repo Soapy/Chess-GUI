@@ -2,69 +2,95 @@
  * Handles GUI and player events
  * TODO: Add GUI
  */
-import java.util.ArrayList;
-import java.util.Scanner;
+import javafx.application.Platform;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
-public class Chess {
+import java.util.ArrayList;
+
+public class Chess extends Stage {
 
     private int turnCount;
     private boolean whitePlayerTurn;
     private Board board;
+    private BorderPane pane;
+
     private ArrayList<Piece> capturedWhitePieces;
     private ArrayList<Piece> capturedBlackPieces;
 
-    public Chess() {
+    public Chess(int humanPlayers) {
         turnCount = 1;
-        board = new Board(8, 8); //Chess is played on an 8 by 8 board.
+        board = new Board(humanPlayers); //Chess is played on an 8 by 8 board.
         createWhitePieces();
         createBlackPieces();
 
         capturedWhitePieces = new ArrayList<>();
         capturedBlackPieces = new ArrayList<>();
 
-        //play();
-    }
+        this.setTitle("Chess: JavaFX Edition");
 
-    private void createWhitePieces() {
-        for(int i = 0; i < board.getRow(); i++) {
-            Pawn pawn = new Pawn(Color.WHITE);
-            board.getTile(6, i).setPiece(pawn);
-        }
+        pane = new BorderPane();
+        Scene scene = new Scene(pane);
+        this.setScene(scene);
 
-        //initialize Rooks
-        board.getTile(7,0).setPiece(new Rook(Color.WHITE));
-        board.getTile(7,7).setPiece(new Rook(Color.WHITE));
-        //initialize knights
-        board.getTile(7,1).setPiece(new Knight(Color.WHITE));
-        board.getTile(7,6).setPiece(new Knight(Color.WHITE));
-        //initialize bishops
-        board.getTile(7,2).setPiece(new Bishop(Color.WHITE));
-        board.getTile(7,5).setPiece(new Bishop(Color.WHITE));
-        //initialize queen
-        board.getTile(7,3).setPiece(new Queen(Color.WHITE));
-        //initialize king
-        board.getTile(7,4).setPiece(new King(Color.WHITE));
+        //add css for colors
+        scene.getStylesheets().add("chess.css");
+
+        //adds the chess board to the borderpane
+        pane.setCenter(board);
+
+        //adds menubar to the top of the borderpane
+        MenuBar menuBar = createMenuBar();
+        pane.setTop(menuBar);
+        this.getIcons().add(new Image("assets/pieces/rook_black.png"));
+        this.show();
+
     }
 
     private void createBlackPieces() {
         for(int i = 0; i < board.getRow(); i++) {
-            Pawn pawn = new Pawn(Color.BLACK);
-            board.getTile(1, i).setPiece(pawn);
+            board.getTile(i, 6).setPiece(new Pawn(Color.BLACK));
         }
 
         //initialize Rooks
-        board.getTile(0,0).setPiece(new Rook(Color.BLACK));
         board.getTile(0,7).setPiece(new Rook(Color.BLACK));
+        board.getTile(7,7).setPiece(new Rook(Color.BLACK));
         //initialize knights
-        board.getTile(0,1).setPiece(new Knight(Color.BLACK));
-        board.getTile(0,6).setPiece(new Knight(Color.BLACK));
+        board.getTile(1,7).setPiece(new Knight(Color.BLACK));
+        board.getTile(6,7).setPiece(new Knight(Color.BLACK));
         //initialize bishops
-        board.getTile(0,2).setPiece(new Bishop(Color.BLACK));
-        board.getTile(0,5).setPiece(new Bishop(Color.BLACK));
+        board.getTile(2,7).setPiece(new Bishop(Color.BLACK));
+        board.getTile(5,7).setPiece(new Bishop(Color.BLACK));
         //initialize queen
-        board.getTile(0,3).setPiece(new Queen(Color.BLACK));
+        board.getTile(3,7).setPiece(new Queen(Color.BLACK));
         //initialize king
-        board.getTile(0,4).setPiece(new King(Color.BLACK));
+        board.getTile(4,7).setPiece(new King(Color.BLACK));
+    }
+
+    private void createWhitePieces() {
+        for(int i = 0; i < board.getRow(); i++) {
+            board.getTile(i, 1).setPiece(new Pawn(Color.WHITE));
+        }
+
+        //initialize Rooks
+        board.getTile(0,0).setPiece(new Rook(Color.WHITE));
+        board.getTile(7,0).setPiece(new Rook(Color.WHITE));
+        //initialize knights
+        board.getTile(1,0).setPiece(new Knight(Color.WHITE));
+        board.getTile(6,0).setPiece(new Knight(Color.WHITE));
+        //initialize bishops
+        board.getTile(2,0).setPiece(new Bishop(Color.WHITE));
+        board.getTile(5,0).setPiece(new Bishop(Color.WHITE));
+        //initialize queen
+        board.getTile(3,0).setPiece(new Queen(Color.WHITE));
+        //initialize king
+        board.getTile(4,0).setPiece(new King(Color.WHITE));
     }
 
     public String currentTurn() {
@@ -78,17 +104,69 @@ public class Chess {
         return movement;
     }
 
-    public void play() {
-        boolean gameState = true;
-        Scanner sc = new Scanner(System.in);
-        Tile[] move = null;
+    //exits the game
+    private void exitGame() {
+        Platform.exit();
+        System.exit(0);
+    }
 
-        System.out.println("White pieces are in lowercase. Black pieces are capitalized.");
-        System.out.println("Enter your moves in algebraic notation (e.g. a0 to a2):");
-        System.out.println("To stop the game, type \"quit\"");
+    private void showInstructions() {
+        Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
+        infoAlert.setTitle("How to play");
+        infoAlert.setHeaderText(null);
 
-        //Movement of all pieces except for Knight in terminal works OK.
-        //TODO: Implement handling for mouse events
+        Stage alertStage = (Stage)infoAlert.getDialogPane().getScene().getWindow();
+        alertStage.getIcons().add(new Image("assets/icons/help.png"));
+
+        infoAlert.setContentText("Capture the enemy player's pieces!\n\n" +
+                        "Each player takes turns moving their pieces across the board.\n\n" +
+                        "Check the opposing player's King.\n\n" +
+                        "If a player's King can no longer move, they lose the game.");
+        infoAlert.showAndWait();
+    }
+
+    private void showAbout() {
+        Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
+        infoAlert.setTitle("About this program");
+        infoAlert.setHeaderText(null);
+
+        // set window icon
+        Stage alertStage = (Stage)infoAlert.getDialogPane().getScene().getWindow();
+        alertStage.getIcons().add(new Image("assets/icons/help.png"));
+
+        infoAlert.setContentText("Initial Design by Stefan Heng and Josh Sabio.\n\n" +
+                "Programmed by Stefan Heng.\n\n" +
+                "Chess pieces attributed to Nørresundby Skakklub");
+        infoAlert.showAndWait();
+    }
+
+    private MenuBar createMenuBar() {
+        MenuBar menuBar = new MenuBar();
+
+        Menu gameMenu = new Menu("Game");
+        menuBar.getMenus().add(gameMenu);
+
+        MenuItem exitItem = new MenuItem("Exit");
+        exitItem.setOnAction(e -> exitGame());
+        gameMenu.getItems().add(exitItem);
+
+
+        Menu helpMenu = new Menu("Help");
+        menuBar.getMenus().add(helpMenu);
+
+        MenuItem instructionsItem = new MenuItem("How to Play");
+        instructionsItem.setOnAction(e -> showInstructions());
+        helpMenu.getItems().add(instructionsItem);
+
+        MenuItem aboutItem = new MenuItem("About");
+        aboutItem.setOnAction(e -> showAbout());
+        helpMenu.getItems().add(aboutItem);
+
+        return menuBar;
+    }
+
+    public Board getBoard() {
+        return board;
     }
 
     @Override

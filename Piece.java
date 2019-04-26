@@ -1,23 +1,19 @@
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import java.util.ArrayList;
 
 public abstract class Piece{
-    private final Color color;
+    private Color color;
     private Tile tile;
     protected Image img;
-    protected ImageView imgView;
+    protected boolean hasMoved;
 
     public Piece(Color color) {
         this.color = color;
-        imgView.setFitHeight(120);
-        imgView.setFitWidth(120);
-        imgView.setPreserveRatio(true);
-        imgView.setSmooth(true);
+        hasMoved = false;
     }
 
-    public ImageView getImageView() {
-        return imgView;
+    public Image getImage() {
+        return img;
     }
 
     public Color getColor() {
@@ -30,6 +26,16 @@ public abstract class Piece{
 
     public void setTile(Tile tile) {
         this.tile = tile;
+    }
+
+    public boolean getHasMoved()
+    {
+        return this.hasMoved;
+    }
+
+    public void setHasMoved(boolean hasMoved)
+    {
+        this.hasMoved = hasMoved; //if a piece has moved once, it will always be true in this case
     }
 
     public boolean canMove(Board board) {
@@ -46,8 +52,8 @@ public abstract class Piece{
     }
 
     public abstract boolean move(Tile t, Board b);
-
     public abstract ArrayList<Tile> getLegalMoves(Board b);
+    public abstract Moveset[] getPieceMoves();
 
     public String toString() {
         String str = this.getClass().getSimpleName();

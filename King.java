@@ -1,5 +1,4 @@
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 
@@ -14,9 +13,8 @@ public class King extends Piece {
 
         //maybe use String.format() instead of ternary??
         //FIX FILE PATH
-        img = color == Color.WHITE ? new Image("file: assets/pieces/king_white.png") :
-                new Image("file: assets/pieces/king_black.png");
-        imgView = new ImageView(img);
+        img = color == Color.WHITE ? new Image("assets/pieces/king_white.png") :
+                new Image("assets/pieces/king_black.png");
     }
 
     /**
@@ -44,13 +42,13 @@ public class King extends Piece {
             Location currentLoc = getTile().getLoc();
             Location tLoc = t.getLoc();
 
-            int column = currentLoc.getColumn();
-            int row = currentLoc.getRow();
-            int tColumn = tLoc.getColumn();
-            int tRow = tLoc.getRow();
+            int x = currentLoc.getX();
+            int y = currentLoc.getY();
+            int tX = tLoc.getX();
+            int tY = tLoc.getY();
 
             //states that king can only move one tile away from its original location
-            if(Math.abs(tRow - row) < 2 && Math.abs(tColumn - column) < 2) {
+            if(Math.abs(tX - x) < 2 && Math.abs(tY - y) < 2) {
                 flag = true;
             }
 
@@ -74,46 +72,61 @@ public class King extends Piece {
         Location myLocation = getTile().getLoc();
         Tile[][] board = b.getBoard();
 
-        int column = myLocation.getColumn();
-        int row = myLocation.getRow();
-        int boardColumns = board[0].length; //8
-        int boardRows = board.length; //8
+        int x = myLocation.getX();
+        int y = myLocation.getY();
+        int boardColumns = board[0].length;
+        int boardRows = board.length;
 
-        if(column + 1 >= 0) {
+        if(y + 1 < boardRows) {
             //moves east
-            legalMoves.add(board[row][column + 1]);
-            if(row + 1 < boardRows) {
+            legalMoves.add(board[x][y + 1]);
+            if(x + 1 < boardRows) {
                 //moves northeast
-                legalMoves.add(board[row + 1][column + 1]);
+                legalMoves.add(board[x + 1][y + 1]);
             }
-            if(row - 1 >= 0) {
+            if(x - 1 >= 0) {
                 //moves southeast
-                legalMoves.add(board[row - 1][column + 1]);
+                legalMoves.add(board[x - 1][y + 1]);
             }
         }
-        if(column - 1 >= 0) {
+        if(y - 1 >= 0) {
             //moves west
-            legalMoves.add(board[row][column - 1]);
-            if(row - 1 >= 0) {
+            legalMoves.add(board[x][y - 1]);
+            if(x - 1 >= 0) {
                 //moves southwest
-                legalMoves.add(board[row - 1][column - 1]);
+                legalMoves.add(board[x - 1][y - 1]);
             }
-            if(row + 1 < boardRows) {
+            if(x + 1 < boardRows) {
                 //moves northwest
-                legalMoves.add(board[row + 1][column - 1]);
+                legalMoves.add(board[x + 1][y - 1]);
             }
         }
 
-        if(row - 1 >= 0) {
+        if(x - 1 >= 0) {
             //moves south
-            legalMoves.add(board[row - 1][column]);
+            legalMoves.add(board[x - 1][y]);
         }
 
-        if(row + 1 < boardColumns) {
+        if(x + 1 < boardColumns) {
             //moves north
-            legalMoves.add(board[row + 1][column]);
+            legalMoves.add(board[x + 1][y]);
         }
-
         return legalMoves;
+    }
+
+    public Moveset[] getPieceMoves()
+    {
+        Moveset[] m =
+                {
+                        Moveset.UP,
+                        Moveset.UP_RIGHT,
+                        Moveset.RIGHT,
+                        Moveset.DOWN_RIGHT,
+                        Moveset.DOWN,
+                        Moveset.DOWN_LEFT,
+                        Moveset.LEFT,
+                        Moveset.UP_LEFT
+                };
+        return m;
     }
 }
