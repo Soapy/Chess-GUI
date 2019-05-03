@@ -1,4 +1,10 @@
 import javafx.scene.control.Button;
+/**
+ * Chess piece Bishop. Can only move diagonally.
+ * author: Stefan Heng
+ */
+
+
 import javafx.scene.image.ImageView;
 
 public class Tile extends Button {
@@ -22,7 +28,8 @@ public class Tile extends Button {
     }
 
     /**
-     * @param piece
+     * Sets a piece to the tile along with the image of the piece over the tile itself.
+     * @param piece the piece to be set
      */
     public void setPiece(Piece piece) {
         this.piece = piece;
@@ -40,6 +47,7 @@ public class Tile extends Button {
     public Location getLoc() {
         return loc;
     }
+	
     /**
      * Removes a piece from the Tile.
      */

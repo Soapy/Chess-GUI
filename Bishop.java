@@ -1,17 +1,25 @@
+/**
+ * Chess piece Bishop. Can only move diagonally.
+ * author: Stefan Heng
+ */
+
 import javafx.scene.image.Image;
-import java.util.ArrayList;
 
 public class Bishop extends Piece {
 
     public Bishop(Color color) {
         super(color);
 
-        //maybe use String.format() instead of ternary??
-        //FIX FILE PATH
         img = color == Color.WHITE ? new Image("assets/pieces/bishop_white.png") :
                 new Image("assets/pieces/bishop_black.png");
     }
 
+    /**
+     * Movement logic of Bishop.
+     * @param t the tile to be moved to
+     * @param b the board containing this piece
+     * @return true if this Bishop can move to t, false if it cannot move to t
+     */
     @Override
     public boolean move(Tile t, Board b) {
         boolean flag = true;
@@ -86,49 +94,12 @@ public class Bishop extends Piece {
         return flag;
     }
 
-    @Override
-    public ArrayList<Tile> getLegalMoves(Board b) {
-        ArrayList<Tile> legalMoves = new ArrayList<>();
-
-        Location myLocation = getTile().getLoc();
-        Tile[][] board = b.getBoard();
-
-        int x = myLocation.getX();
-        int y = myLocation.getY();
-        int boardColumns = board[0].length;
-        int boardRows = board.length;
-
-        //moves northeast
-        for(int i = x + 1, j = y + 1; i < boardColumns && j < boardRows; i++, j++) {
-            legalMoves.add(board[i][j]);
-        }
-
-        //moves southeast
-        for(int i = x + 1, j = y - 1; i < boardColumns && j >= 0; i++, j--) {
-            legalMoves.add(board[i][j]);
-        }
-
-        //moves northwest
-        for(int i = x - 1, j = y + 1; i >= 0 && j < boardRows; i--, j++) {
-            legalMoves.add(board[i][j]);
-        }
-
-        //moves southwest
-        for(int i = x - 1, j = y - 1; i >= 0 && j >= 0; i--, j--) {
-            legalMoves.add(board[i][j]);
-        }
-        return legalMoves;
-    }
-
-    public Moveset[] getPieceMoves()
-    {
-        Moveset[] m =
-                {
-                        Moveset.UP_RIGHT,
-                        Moveset.DOWN_RIGHT,
-                        Moveset.DOWN_LEFT,
-                        Moveset.UP_LEFT
-                };
+    /**
+     * Obtains all the legal moves of this Bishop in a game of Chess.
+     * @return an array of legal moves that this Bishop can perform.
+     */
+    public Moveset[] getLegalMoves() {
+        Moveset[] m = {Moveset.NORTHEAST, Moveset.NORTHWEST, Moveset.SOUTHWEST, Moveset.SOUTHEAST};
         return m;
     }
 }

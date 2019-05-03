@@ -1,18 +1,26 @@
-import javafx.scene.image.Image;
+/**
+ * Chess piece Rook. Can only move horizontally or vertically.
+ * author: Stefan Heng
+ */
 
-import java.util.ArrayList;
+
+import javafx.scene.image.Image;
 
 public class Rook extends Piece {
 
     public Rook(Color color) {
         super(color);
 
-        //maybe use String.format() instead of ternary??
-        //FIX FILE PATH
         img = color == Color.WHITE ? new Image("assets/pieces/rook_white.png") :
                 new Image("assets/pieces/rook_black.png");
     }
 
+    /**
+     * Movement logic of Queen.
+     * @param t the tile to be moved to
+     * @param b the board containing this piece
+     * @return true if this Queen can move to t, false if it cannot move to t
+     */
     @Override
     public boolean move(Tile t, Board b) {
         boolean flag = true;
@@ -84,43 +92,13 @@ public class Rook extends Piece {
         return flag;
     }
 
+    /**
+     * Obtains all the legal moves of this Rook in a game of Chess.
+     * @return an array of legal moves that this Rook can perform.
+     */
     @Override
-    public ArrayList<Tile> getLegalMoves(Board b) {
-        ArrayList<Tile> legalMoves = new ArrayList<>();
-
-        Location myLocation = getTile().getLoc();
-        Tile[][] board = b.getBoard();
-
-        int x = myLocation.getX();
-        int y = myLocation.getY();
-        int boardColumns = board[0].length;
-        int boardRows = board.length;
-
-        //moves west and east
-        for(int i = 0; i < boardColumns; i++) {
-            if(i != x) {
-                legalMoves.add(board[i][y]);
-            }
-        }
-
-        //moves north and south
-        for(int i = 0; i < boardRows; i++) {
-            if(i != y) {
-                legalMoves.add(board[x][i]);
-            }
-        }
-        return legalMoves;
-    }
-
-    @Override
-    public Moveset[] getPieceMoves() {
-        Moveset[] m =
-                {
-                        Moveset.UP,
-                        Moveset.RIGHT,
-                        Moveset.DOWN,
-                        Moveset.LEFT
-                };
+    public Moveset[] getLegalMoves() {
+        Moveset[] m = {Moveset.NORTH, Moveset.SOUTH, Moveset.EAST, Moveset.WEST};
         return m;
     }
 }

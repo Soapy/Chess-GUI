@@ -1,6 +1,9 @@
 /**
- * Movement logic for the Pawn piece
+ * Chess piece Pawn. Can only move up or down one or two tiles depending on previous movement.
+ * Can only move diagonally if it can capture an opposing player's piece.
+ * author: Stefan Heng
  */
+
 import javafx.scene.image.Image;
 import java.util.ArrayList;
 
@@ -14,8 +17,6 @@ public class Pawn extends Piece {
     public Pawn(Color color) {
         super(color);
 
-        //maybe use String.format() instead of ternary??
-        //FIX FILE PATH
         img = color == Color.WHITE ? new Image("assets/pieces/pawn_white.png") :
                 new Image("assets/pieces/pawn_black.png");
     }
@@ -36,10 +37,10 @@ public class Pawn extends Piece {
     }
 
     /**
-     * Contains the movement logic of the Pawn piece
-     * @param t the tile of the this Pawn
-     * @param b the game board with this Pawn
-     * @return flag
+     * Movement logic of Pawn.
+     * @param t the tile to be moved to
+     * @param b the board containing this piece
+     * @return true if this Pawn can move to t, false if it cannot move to t
      */
     @Override
     public boolean move(Tile t, Board b) {
@@ -115,133 +116,46 @@ public class Pawn extends Piece {
         return flag;
     }
 
-
     /**
-     *
-     * @param b the board with this Pawn
-     * @return legalMoves which is an ArrayList with all the legal moves for the this Pawn
+     * Obtains all the legal moves of this Pawn in a game of Chess.
+     * @return an array of legal moves that this Pawn can perform.
      */
-    @Override
-    public ArrayList<Tile> getLegalMoves(Board b) {
-        //ArrayList of legal moves for this Pawn
-        ArrayList<Tile> legalMoves = new ArrayList<>();
-
-        Location myLocation = getTile().getLoc();
-        Tile[][] board = b.getBoard();
-
-        int x = myLocation.getX();
-        int y = myLocation.getY();
-        int boardColumns = board[0].length;
-        int boardRows = board.length;
-
-        //white pawn movement logic
-        if(getColor() == Color.WHITE) {
-            //checks if one tile forward is within board bounds and unblocked
-            if(y + 1 < boardRows && !board[x][y + 1].hasPiece()) {
-                legalMoves.add(board[x][y + 1]);
-
-                //moves to the right diagonal tile and captures the piece existing on it
-                if(x + 1 < boardColumns && board[x + 1][y + 1].hasPiece()) {
-                    if(board[x + 1][y + 1].getPiece().getColor() == Color.BLACK)
-                    {
-                        legalMoves.add(board[x + 1][y + 1]);
-                    }
-                }
-
-                //moves to the left diagonal tile and captures the piece existing on it
-                if(x - 1 >= 0 && board[x - 1][y + 1].hasPiece()) {
-                    if(board[x - 1][y + 1].getPiece().getColor() == Color.BLACK)
-                    {
-                        legalMoves.add(board[x - 1][y + 1]);
-                    }
-                }
-            }
-
-            //checks if two tiles forward is within board bounds and unblocked
-            if(y + 2 < boardRows && !hasMoved && !board[x][y + 1].hasPiece()
-                    && !board[x][y + 2].hasPiece()) {
-                legalMoves.add(board[x][y + 2]);
-            }
-        }
-
-        //black pawn movement logic
-        else {
-            //checks if one tile forward is within board bounds and unblocked
-            if(y - 1 < boardRows && !board[x][y - 1].hasPiece()) {
-                legalMoves.add(board[x][y - 1]);
-
-                //moves to the right diagonal tile and captures the piece existing on it
-                if(x + 1 < boardColumns && !board[x - 1][y + 1].hasPiece()) {
-                    if (board[x + 1][y - 1].getPiece().getColor() == Color.BLACK)
-                    {
-                        legalMoves.add(board[x + 1][y - 1]);
-                    }
-                }
-
-                //moves to the left diagonal tile and captures the piece existing on it
-                if(x - 1 >= 0 && !board[x - 1][y - 1].hasPiece()) {
-                    if (board[x - 1][y - 1].getPiece().getColor() == Color.BLACK)
-                    {
-                        legalMoves.add(board[x - 1][y - 1]);
-                    }
-                }
-            }
-
-            //checks if two tiles forward is within board bounds and unblocked
-            if(y - 2 >= 0 && !hasMoved && !board[x][y - 2].hasPiece()
-                    && !board[x][y - 2].hasPiece()) {
-                legalMoves.add(board[x][y - 2]);
-            }
-        }
-        return legalMoves;
-    }
-
-    public Moveset[] getPieceMoves()
-    {
-        /*
-         * Pawn movement is HIGHLY conditional, so this branches.
-         * The list ensures correct direction and two-space movement.
-         * All the board-dependent things (like diagonal iff capturing) are ChessBoard's job.
-         */
+    public Moveset[] getLegalMoves() {
+        Moveset[] m = {};
         boolean isWhite = this.getColor() == Color.WHITE;
 
-        //braces ensure toArray() works later, see ArrayList docs for why
-        Moveset[] moves = {};
-
-        //since pawns will never be white AND black, only returns moves of correct direction
-        if(isWhite)
-        {
+        if(isWhite) {
             ArrayList<Moveset> whiteMoves = new ArrayList<>();
 
-            //standard straight, can't capture using this
-            whiteMoves.add(Moveset.UP);
+            whiteMoves.add(Moveset.NORTH);
 
-            //diagonals, can and must capture using this
-            whiteMoves.add(Moveset.UP_RIGHT);
-            whiteMoves.add(Moveset.UP_LEFT);
+            //capture diagonally
+            whiteMoves.add(Moveset.NORTHEAST);
+            whiteMoves.add(Moveset.NORTHWEST);
 
-            //if hasn't moved, UP is valid board move, can't capture using this
-            if(!hasMoved) {whiteMoves.add(Moveset.DOUBLE_UP);}
+            if(!hasMoved) {
+                whiteMoves.add(Moveset.TWO_NORTH);
+                hasMoved = true;
+            }
 
-            moves = whiteMoves.toArray(moves);
+            m = whiteMoves.toArray(m);
         }
-        else
-        {
+        else {
             ArrayList<Moveset> blackMoves = new ArrayList<>();
 
-            //standard straight, can't capture
-            blackMoves.add(Moveset.DOWN);
+            blackMoves.add(Moveset.SOUTH);
 
-            //diagonals, can and must capture using this
-            blackMoves.add(Moveset.DOWN_RIGHT);
-            blackMoves.add(Moveset.DOWN_LEFT);
+            //capture diagonally
+            blackMoves.add(Moveset.SOUTHEAST);
+            blackMoves.add(Moveset.SOUTHWEST);
 
-            //if hasn't moved, DOWN is valid board move, can't capture using this
-            if(!hasMoved) {blackMoves.add(Moveset.DOUBLE_DOWN);}
+            if(!hasMoved) {
+                blackMoves.add(Moveset.TWO_SOUTH);
+                hasMoved = true;
+            }
 
-            moves = blackMoves.toArray(moves);
+            m = blackMoves.toArray(m);
         }
-
-        return moves;
+        return m;
     }
 }

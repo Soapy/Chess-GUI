@@ -1,18 +1,26 @@
-import javafx.scene.image.Image;
+/**
+ * Chess piece Queen. Can move diagonally, vertically, and horizontally.
+ * Queen has the same movement logic as Bishop and Rook combined.
+ * author: Stefan Heng
+ */
 
-import java.util.ArrayList;
+import javafx.scene.image.Image;
 
 public class Queen extends Piece {
 
     public Queen(Color color) {
         super(color);
 
-        //maybe use String.format() instead of ternary??
-        //FIX FILE PATH
         img = color == Color.WHITE ? new Image("assets/pieces/queen_white.png") :
                 new Image("assets/pieces/queen_black.png");
     }
 
+    /**
+     * Movement logic of Queen.
+     * @param t the tile to be moved to
+     * @param b the board containing this piece
+     * @return true if this Queen can move to t, false if it cannot move to t
+     */
     @Override
     public boolean move(Tile t, Board b) {
         boolean flag = true;
@@ -127,67 +135,15 @@ public class Queen extends Piece {
         return flag;
     }
 
+    /**
+     * Obtains all the legal moves of this Queen in a game of Chess.
+     * @return an array of legal moves that this Queen can perform.
+     */
     @Override
-    public ArrayList<Tile> getLegalMoves(Board b) {
-        ArrayList<Tile> legalMoves = new ArrayList<>();
-
-        Location myLocation = getTile().getLoc();
-        Tile[][] board = b.getBoard();
-
-        int x = myLocation.getX();
-        int y = myLocation.getY();
-        int boardColumns = board[0].length;
-        int boardRows = board.length;
-
-        //moves west and east
-        for(int i = 0; i < boardColumns; i++) {
-            if(i != y) {
-                legalMoves.add(board[x][i]);
-            }
-        }
-
-        //moves north and south
-        for(int i = 0; i < boardRows; i++) {
-            if(i != x) {
-                legalMoves.add(board[i][y]);
-            }
-        }
-
-        //moves northeast
-        for(int i = x + 1, j = y + 1; i < boardColumns && j < boardRows; i++, j++) {
-            legalMoves.add(board[i][j]);
-        }
-
-        //moves southeast
-        for(int i = x + 1, j = y - 1; i < boardColumns && j >= 0; i++, j--) {
-            legalMoves.add(board[i][j]);
-        }
-
-        //moves northwest
-        for(int i = x - 1, j = y + 1; i >= 0 && j < boardRows; i--, j++) {
-            legalMoves.add(board[i][j]);
-        }
-
-        //moves southwest
-        for(int i = x - 1, j = y - 1; i >= 0 && j >= 0; i--, j--) {
-            legalMoves.add(board[i][j]);
-        }
-        return legalMoves;
-    }
-
-    public Moveset[] getPieceMoves()
-    {
-        Moveset[] m =
-                {
-                        Moveset.UP,
-                        Moveset.UP_RIGHT,
-                        Moveset.RIGHT,
-                        Moveset.DOWN_RIGHT,
-                        Moveset.DOWN,
-                        Moveset.DOWN_LEFT,
-                        Moveset.LEFT,
-                        Moveset.UP_LEFT
-                };
+    public Moveset[] getLegalMoves() {
+        Moveset[] m = {Moveset.NORTH, Moveset.NORTHEAST, Moveset.NORTHWEST,
+                Moveset.SOUTH, Moveset.SOUTHWEST, Moveset.SOUTHEAST,
+                Moveset.EAST, Moveset.WEST};
         return m;
     }
 }

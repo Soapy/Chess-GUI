@@ -1,50 +1,39 @@
+/**
+ * Details all the logic of how a piece can move.
+ */
 public enum Moveset {
-    UP (0,1),
-    UP_RIGHT(1, 1),
-    RIGHT(1, 0),
-    DOWN_RIGHT(1, -1),
-    DOWN(0,-1),
-    DOWN_LEFT(-1, -1),
-    LEFT(-1, 0),
-    UP_LEFT(-1, 1),
+    NORTH (0,1),
+    NORTHEAST(1, 1),
+    EAST(1, 0),
+    SOUTHEAST(1, -1),
+    SOUTH(0,-1),
+    SOUTHWEST(-1, -1),
+    WEST(-1, 0),
+    NORTHWEST(-1, 1),
 
-    KNIGHT_LEFT_UP(-2, 1),
-    KNIGHT_UP_LEFT(-1, 2),
-    KNIGHT_UP_RIGHT(1, 2),
-    KNIGHT_RIGHT_UP(2, 1),
+    ONE_WEST_TWO_NORTH(-1, 2),
+    ONE_EAST_TWO_NORTH(1, 2),
+    ONE_EAST_TWO_SOUTH(1, -2),
+    ONE_WEST_TWO_SOUTH(-1, -2),
+    TWO_WEST_ONE_SOUTH(-2, -1),
+    TWO_EAST_ONE_NORTH(2, 1),
+    TWO_EAST_ONE_SOUTH(2, -1),
+    TWO_WEST_ONE_NORTH(-2, 1),
 
-    KNIGHT_RIGHT_DOWN(2, -1),
-    KNIGHT_DOWN_RIGHT(1, -2),
-    KNIGHT_DOWN_LEFT(-1, -2),
-    KNIGHT_LEFT_DOWN(-2, -1),
+    TWO_NORTH(0, 2),
+    TWO_SOUTH(0, -2);
 
-    DOUBLE_UP(0, 2),
-    DOUBLE_DOWN(0, -2);
-
-    private int x;
-    private int y;
-
-    private void setX(int x){
-        this.x = x;
-    }
+    private int x, y;
 
     public int getX(){
         return this.x;
     }
 
-    private void setY(int y){
-        this.y = y;
-    }
-    public int getY(){return this.y;}
-
-    public boolean isEqual(Movement m) {
-        return ( this.x == m.getNewX() ) && ( this.y == m.getNewY() );
-    }
-    public boolean isEqual(int x, int y) {
-        return ( this.x == x ) && ( this.y == y );
+    public int getY(){
+        return this.y;
     }
 
-    private Moveset(int x, int y)
+    Moveset(int x, int y)
     {
         this.x = x;
         this.y = y;

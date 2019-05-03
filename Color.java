@@ -1,3 +1,7 @@
+/**
+ * Represents a Chess piece's color.
+ * author: Stefan Heng
+ */
 public enum Color {
     WHITE,
     BLACK;

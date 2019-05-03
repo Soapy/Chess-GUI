@@ -1,6 +1,6 @@
 /**
- * Handles GUI and player events
- * TODO: Add GUI
+ * Handles GUI and the event handling of various components in the GUI.
+ * author: Stefan Heng
  */
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 public class Chess extends Stage {
 
-    private int turnCount;
     private boolean whitePlayerTurn;
     private Board board;
     private BorderPane pane;
@@ -25,7 +24,6 @@ public class Chess extends Stage {
     private ArrayList<Piece> capturedBlackPieces;
 
     public Chess(int humanPlayers) {
-        turnCount = 1;
         board = new Board(humanPlayers); //Chess is played on an 8 by 8 board.
         createWhitePieces();
         createBlackPieces();
@@ -53,6 +51,9 @@ public class Chess extends Stage {
 
     }
 
+    /**
+     * Initializes black pieces on a chess board.
+     */
     private void createBlackPieces() {
         for(int i = 0; i < board.getRow(); i++) {
             board.getTile(i, 6).setPiece(new Pawn(Color.BLACK));
@@ -73,6 +74,9 @@ public class Chess extends Stage {
         board.getTile(4,7).setPiece(new King(Color.BLACK));
     }
 
+    /**
+     * Initializes white pieces on a chess board.
+     */
     private void createWhitePieces() {
         for(int i = 0; i < board.getRow(); i++) {
             board.getTile(i, 1).setPiece(new Pawn(Color.WHITE));
@@ -93,23 +97,24 @@ public class Chess extends Stage {
         board.getTile(4,0).setPiece(new King(Color.WHITE));
     }
 
+    /**
+     * Determines whose turn it is.
+     */
     public String currentTurn() {
         return whitePlayerTurn ? Color.WHITE.toString() : Color.BLACK.toString();
     }
 
-    public Tile[] parseMoves(String playerMove, Color playerTurn) {
-        String move = playerMove.toLowerCase();
-        Tile[] movement = new Tile[2];
-
-        return movement;
-    }
-
-    //exits the game
+    /**
+     * Exits the application.
+     */
     private void exitGame() {
         Platform.exit();
         System.exit(0);
     }
 
+    /**
+     * Creates an alert detailing how to play a game of Chess.
+     */
     private void showInstructions() {
         Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
         infoAlert.setTitle("How to play");
@@ -125,6 +130,9 @@ public class Chess extends Stage {
         infoAlert.showAndWait();
     }
 
+    /**
+     * Creates an alert showcasing those who took part in creating this application.
+     */
     private void showAbout() {
         Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
         infoAlert.setTitle("About this program");
@@ -140,6 +148,9 @@ public class Chess extends Stage {
         infoAlert.showAndWait();
     }
 
+    /**
+     * Creates a MenuBar that holds Menu components.
+     */
     private MenuBar createMenuBar() {
         MenuBar menuBar = new MenuBar();
 
@@ -172,7 +183,7 @@ public class Chess extends Stage {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(board.toString());
-        sb.append("\nCurrent turn: " + turnCount + "\n");
+        sb.append("\nCurrent turn: " + "\n");
         sb.append(capturedWhitePieces);
         sb.append(capturedBlackPieces);
         return sb.toString();

@@ -1,3 +1,7 @@
+/**
+ * Holds the x and y coordinate of a tile in an array.
+ * author: Stefan Heng
+ */
 public class Location {
 
     private int x;

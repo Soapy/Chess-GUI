@@ -1,6 +1,9 @@
-import javafx.scene.image.Image;
+/**
+ * Chess piece King. Can only move to the tiles around this piece.
+ * author: Stefan Heng
+ */
 
-import java.util.ArrayList;
+import javafx.scene.image.Image;
 
 public class King extends Piece {
 
@@ -11,17 +14,15 @@ public class King extends Piece {
     public King(Color color) {
         super(color);
 
-        //maybe use String.format() instead of ternary??
-        //FIX FILE PATH
         img = color == Color.WHITE ? new Image("assets/pieces/king_white.png") :
                 new Image("assets/pieces/king_black.png");
     }
 
     /**
-     * Contains the movement logic of the King piece
-     * @param t the tile of the this King
-     * @param b the game board with this King
-     * @return flag
+     * Movement logic of King.
+     * @param t the tile to be moved to
+     * @param b the board containing this piece
+     * @return true if this King can move to t, false if it cannot move to t
      */
     @Override
     public boolean move(Tile t, Board b) {
@@ -60,73 +61,13 @@ public class King extends Piece {
     }
 
     /**
-     *
-     * @param b the board with this King
-     * @return legalMoves which is an ArrayList with all the legal moves for the this King
+     * Obtains all the legal moves of this King in a game of Chess.
+     * @return an array of legal moves that this King can perform.
      */
-    @Override
-    public ArrayList<Tile> getLegalMoves(Board b) {
-        //ArrayList of legal moves for this King
-        ArrayList<Tile> legalMoves = new ArrayList<>();
-
-        Location myLocation = getTile().getLoc();
-        Tile[][] board = b.getBoard();
-
-        int x = myLocation.getX();
-        int y = myLocation.getY();
-        int boardColumns = board[0].length;
-        int boardRows = board.length;
-
-        if(y + 1 < boardRows) {
-            //moves east
-            legalMoves.add(board[x][y + 1]);
-            if(x + 1 < boardRows) {
-                //moves northeast
-                legalMoves.add(board[x + 1][y + 1]);
-            }
-            if(x - 1 >= 0) {
-                //moves southeast
-                legalMoves.add(board[x - 1][y + 1]);
-            }
-        }
-        if(y - 1 >= 0) {
-            //moves west
-            legalMoves.add(board[x][y - 1]);
-            if(x - 1 >= 0) {
-                //moves southwest
-                legalMoves.add(board[x - 1][y - 1]);
-            }
-            if(x + 1 < boardRows) {
-                //moves northwest
-                legalMoves.add(board[x + 1][y - 1]);
-            }
-        }
-
-        if(x - 1 >= 0) {
-            //moves south
-            legalMoves.add(board[x - 1][y]);
-        }
-
-        if(x + 1 < boardColumns) {
-            //moves north
-            legalMoves.add(board[x + 1][y]);
-        }
-        return legalMoves;
-    }
-
-    public Moveset[] getPieceMoves()
-    {
-        Moveset[] m =
-                {
-                        Moveset.UP,
-                        Moveset.UP_RIGHT,
-                        Moveset.RIGHT,
-                        Moveset.DOWN_RIGHT,
-                        Moveset.DOWN,
-                        Moveset.DOWN_LEFT,
-                        Moveset.LEFT,
-                        Moveset.UP_LEFT
-                };
+    public Moveset[] getLegalMoves() {
+        Moveset[] m = {Moveset.NORTH, Moveset.NORTHEAST, Moveset.NORTHWEST,
+                Moveset.SOUTH, Moveset.SOUTHWEST, Moveset.SOUTHEAST,
+                Moveset.EAST, Moveset.WEST};
         return m;
     }
 }

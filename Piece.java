@@ -1,5 +1,4 @@
 import javafx.scene.image.Image;
-import java.util.ArrayList;
 
 public abstract class Piece{
     private Color color;
@@ -28,32 +27,26 @@ public abstract class Piece{
         this.tile = tile;
     }
 
-    public boolean getHasMoved()
-    {
+    public boolean getHasMoved() {
         return this.hasMoved;
     }
 
-    public void setHasMoved(boolean hasMoved)
-    {
+    public void setHasMoved(boolean hasMoved) {
         this.hasMoved = hasMoved; //if a piece has moved once, it will always be true in this case
     }
-
-    public boolean canMove(Board board) {
-        boolean flag = false;
-        ArrayList<Tile> possibleMoves = getLegalMoves(board);
-
-        for(int i = 0; i < possibleMoves.size(); i++) {
-            if(move(possibleMoves.get(i), board)) {
-                flag = true;
-            }
-        }
-
-        return flag;
-    }
-
+    /**
+     * Movement logic of piece.
+     * @param t the tile to be moved to
+     * @param b the board containing this piece
+     * @return true if this piece can move to t, false if it cannot move to t
+     */
     public abstract boolean move(Tile t, Board b);
-    public abstract ArrayList<Tile> getLegalMoves(Board b);
-    public abstract Moveset[] getPieceMoves();
+
+    /**
+     * Obtains all the legal moves of this piece in a game of Chess.
+     * @return an array of legal moves that this piece can perform.
+     */
+    public abstract Moveset[] getLegalMoves();
 
     public String toString() {
         String str = this.getClass().getSimpleName();

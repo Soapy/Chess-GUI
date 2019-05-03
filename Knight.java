@@ -1,18 +1,26 @@
-import javafx.scene.image.Image;
 
-import java.util.ArrayList;
+/**
+ * Chess piece Knight. Can only move in an L shape.
+ * author: Stefan Heng
+ */
+
+import javafx.scene.image.Image;
 
 public class Knight extends Piece {
 
     public Knight(Color color) {
         super(color);
 
-        //maybe use String.format() instead of ternary??
-        //FIX FILE PATH
         img = color == Color.WHITE ? new Image("assets/pieces/knight_white.png") :
                 new Image("assets/pieces/knight_black.png");
     }
 
+    /**
+     * Movement logic of Queen.
+     * @param t the tile to be moved to
+     * @param b the board containing this piece
+     * @return true if this Queen can move to t, false if it cannot move to t
+     */
     @Override
     public boolean move(Tile t, Board b) {
         boolean flag = true;
@@ -37,79 +45,19 @@ public class Knight extends Piece {
             int y = currentLoc.getY();
             int tX = tLoc.getX();
             int tY = tLoc.getY();
-
-            if(getColor() == Color.WHITE) {
-
-            }
-            else {
-
-            }
         }
         return flag;
     }
 
+    /**
+     * Obtains all the legal moves of this Knight in a game of Chess.
+     * @return an array of legal moves that this Knight can perform.
+     */
     @Override
-    public ArrayList<Tile> getLegalMoves(Board b) {
-        ArrayList<Tile> legalMoves = new ArrayList<>();
-
-        Location myLocation = getTile().getLoc();
-        Tile[][] board = b.getBoard();
-
-        int x = myLocation.getX();
-        int y = myLocation.getY();
-        int boardColumns = board[0].length;
-        int boardRows = board.length;
-
-        //knight can move forward
-        if(x + 1 < boardRows && y - 2 >= 0) {
-            legalMoves.add(board[x + 1][y - 2]);
-        }
-
-        if(x + 2 < boardRows && y - 1 >= 0) {
-            legalMoves.add(board[x + 2][y - 1]);
-        }
-
-        if(x + 2 < boardRows && y + 1 < boardColumns) {
-            legalMoves.add(board[x + 2][y + 1]);
-        }
-
-        if(x + 1 < boardRows && y + 2 < boardColumns) {
-            legalMoves.add(board[x + 1][y + 2]);
-        }
-
-        //knight can move backward
-        if(x - 1 >= 0 && y - 2 >= 0) {
-            legalMoves.add(board[x + 1][y - 2]);
-        }
-
-        if(x - 2 >= 0 && y - 1 >= 0) {
-            legalMoves.add(board[x + 2][y - 1]);
-        }
-
-        if(x - 2 >= 0 && y + 1 < boardColumns) {
-            legalMoves.add(board[x + 2][y + 1]);
-        }
-
-        if(x - 1 >= 0 && y + 2 < boardColumns) {
-            legalMoves.add(board[x + 1][y + 2]);
-        }
-
-        return legalMoves;
-    }
-
-    @Override
-    public Moveset[] getPieceMoves() {
-        Moveset[] m =
-                {
-                        Moveset.KNIGHT_LEFT_UP,
-                        Moveset.KNIGHT_UP_LEFT,
-                        Moveset.KNIGHT_UP_RIGHT,
-                        Moveset.KNIGHT_RIGHT_UP,
-                        Moveset.KNIGHT_RIGHT_DOWN,
-                        Moveset.KNIGHT_DOWN_RIGHT,
-                        Moveset.KNIGHT_DOWN_LEFT,
-                        Moveset.KNIGHT_LEFT_DOWN
-                };
+    public Moveset[] getLegalMoves() {
+        Moveset[] m = {Moveset.ONE_WEST_TWO_NORTH, Moveset.ONE_EAST_TWO_NORTH, Moveset.ONE_EAST_TWO_SOUTH,
+                Moveset.ONE_WEST_TWO_SOUTH, Moveset.TWO_WEST_ONE_SOUTH, Moveset.TWO_EAST_ONE_NORTH,
+                Moveset.TWO_EAST_ONE_SOUTH, Moveset.TWO_WEST_ONE_NORTH};
         return m;
     }
 }
